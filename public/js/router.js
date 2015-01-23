@@ -6,6 +6,19 @@ angular.module('foodpipeApp',['ngRoute'])
                 templateUrl: 'views/main.html'
               }).when('/signup', {
                 templateUrl: 'views/usersignup.html'
-              }).otherwise({redirectTo:'/'});
+              }).when('/homepage',{
+                templateUrl: 'views/homepage.html',
+                controller: 'HomePageCtrl as hmepagectrl',
+                resolve:{
+                auth:['$q','$location','UserService',function($q,$location,UserService){
+                      return UserService.checkexpiry().then(function(success){},function(error)
+                      {
+                           $location.path('/login');
+                           $location.replace();
+                           return $q.reject(err);
+                      });
+                }]}
+              })
+              .otherwise({redirectTo:'/'});
 			}]
 		  );		
