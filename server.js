@@ -2,7 +2,7 @@ var express = require('express');
 
 var app = express();
 
-app.listen(3003,function(){
+app.listen(3000,function(){
 	console.log('hosting server at port 3000');
 });
 

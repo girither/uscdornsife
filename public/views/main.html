@@ -20,8 +20,13 @@
                 <li><a href="#">Contacts</a></li>
               </ul>
              <form  class="navbar-form navbar-right">
-                <a type="button" href="#/signin" class="btn btn-primary" >Sign in</a>
-                <a type="button" href="#/signup" class="btn btn-success" >Sign up</a>
+                 <span ng-hide="appCtrl.userservice.LoggedIn()">
+                  <a type="button" href="#/signin" class="btn btn-primary" >Sign in</a>
+                  <a type="button" href="#/signup" class="btn btn-success" >Sign up</a>
+                 </span>
+                 <span ng-show="appCtrl.userservice.LoggedIn()">
+                  <a href="#/logout">Logout</a>
+                  </span>
               </form>
             </div>
           </div>

@@ -1,38 +1,53 @@
 angular.module('foodpipeApp')
 			.factory('UserService',['$http','$window',function($http,$window){
-				this.isLoggedin = false;
-                this.login = function(user){
-                   return $http.post('api/login',user);
-                }.then(function(response)
+				isLoggedin = false;
+                return {
+                LoggedIn: function() {
+                     return isLoggedin;
+                },    
+                login :function(user){
+                    var req = {
+                      method: 'POST',
+                      url: 'http://localhost:3004/login',
+                      headers: {
+                         'Content-Type': 'application/json'
+                      },
+                      data: user,
+                    };
+                   return $http(req).then(function(response)
                 {
-                	this.isLoggedin = true;
-                	$window.sessionStorage.token = response.token;
+                    isLoggedin = true;
+                    $window.sessionStorage.token = response.token;
+                    return response;
                 });
-                this.checkexpiry = function(){
+                },
+                signup:function(user){
+                      var req = {
+                      method: 'POST',
+                      url: 'http://localhost:3004/signup',
+                      headers: {
+                         'Content-Type': 'application/json'
+                      },
+                      data: user,
+                    };
+                	return $http(req).then(function(response)
+                    {
+                        isLoggedin = true;
+                        $window.sessionStorage.token = response.token;
+                        return response;
+                    });
+                },
+                checkexpiry:function(){
                 	if($window.sessionStorage.token)
                 	{
-                		this.isLoggedin = true;
+                		isLoggedin = true;
+                        return isLoggedin;
                 	} 
-                };
+                    else 
+                    {
+                        isLoggedin = false;
+                        return isLoggedin;
+                    }
+                }
+            };
             }]);
-angular.module('foodpipeApp',[])
-             .controller('MainController',['UserService','$location',function(UserService,$location)
-             {
-                this.userservice = UserService;
-                userservice.checkexpiry();
-             }])
-             .controller('LoginController',['UserService',function(UserService)
-             	{
-             		this.user = {
-             			username:'',
-             			password:''
-             		};
-             		this.login = function(){
-                          UserService.login(this.user).then(function(success){
-                                 $location.path('/homepage'); 
-                          },function(error){
-                          	this.errormessage = error.data.msg;
-                          });
-             		};
-             	}
-             	]);
