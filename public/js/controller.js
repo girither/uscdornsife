@@ -1,13 +1,11 @@
 angular.module('foodpipeApp')
-		        .controller('HomePageController',['UserService','$location',function(UserService,$location)
+		        .controller('HomePageController',['UserService',function(UserService)
              {
                 this.userservice = UserService;
-                userservice.checkexpiry();
              }])
 		       .controller('AppController',['UserService',function(UserService)
              {
                 this.userservice = UserService;
-                userservice.checkexpiry();
              }])
              .controller('LoginCtrl',['UserService','$location',function(UserService,$location)
              	{
@@ -20,7 +18,7 @@ angular.module('foodpipeApp')
                                  $location.path('/homepage'); 
                                  $location.replace();
                           },function(error){
-                          	this.errormessage = error.data.msg;
+                          	this.errormessage = error.data;
                           });
              		};
              	}
@@ -38,7 +36,7 @@ angular.module('foodpipeApp')
                                  $location.path('/homepage'); 
                                  $location.replace();
                           },function(error){
-                          	this.errormessage = error.data.msg;
+                          	this.errormessage = error.data;
                           });
              		};
              	}

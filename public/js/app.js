@@ -1,53 +1,50 @@
 angular.module('foodpipeApp')
-			.factory('UserService',['$http','$window',function($http,$window){
+			.factory('UserService',['$http','$window','$location',function($http,$window,$location){
 				isLoggedin = false;
                 return {
                 LoggedIn: function() {
                      return isLoggedin;
                 },    
                 login :function(user){
-                    var req = {
-                      method: 'POST',
-                      url: 'http://localhost:3004/login',
-                      headers: {
-                         'Content-Type': 'application/json'
-                      },
-                      data: user,
-                    };
-                   return $http(req).then(function(response)
+                   return $http.post('http://localhost:3000/login',user).then(function(response)
                 {
                     isLoggedin = true;
-                    $window.sessionStorage.token = response.token;
+                    $window.sessionStorage.token = response.data.token;
                     return response;
                 });
                 },
                 signup:function(user){
-                      var req = {
-                      method: 'POST',
-                      url: 'http://localhost:3004/signup',
-                      headers: {
-                         'Content-Type': 'application/json'
-                      },
-                      data: user,
-                    };
-                	return $http(req).then(function(response)
+                	return $http.post('http://localhost:3000/signup',user).then(function(response)
                     {
                         isLoggedin = true;
-                        $window.sessionStorage.token = response.token;
+                        $window.sessionStorage.token = response.data.token;
                         return response;
                     });
                 },
                 checkexpiry:function(){
-                	if($window.sessionStorage.token)
-                	{
-                		isLoggedin = true;
-                        return isLoggedin;
-                	} 
-                    else 
-                    {
-                        isLoggedin = false;
-                        return isLoggedin;
-                    }
-                }
+                  return $http.post('http://localhost:3000/checkTokenExpiry').then(function(response){
+                       isLoggedin = true;
+                       return response;
+                  });
+                },
+                logout:function(){
+                   isLoggedin = false;
+                   delete $window.sessionStorage.token;
+                   $location.path('/signin');
+                },
             };
-            }]);
+            }])
+          .factory('authInterceptor', ['$window',function($window) {  
+              var sessionInjector = {
+              request: function(config) {
+              if ($window.sessionStorage.token) {
+                  config.headers['X-Auth'] = $window.sessionStorage.token;
+              }
+              return config;
+              }
+            };
+            return sessionInjector;
+          }])
+          .config(['$httpProvider', function($httpProvider) {  
+            $httpProvider.interceptors.push('authInterceptor');
+          }]);

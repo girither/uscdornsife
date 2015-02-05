@@ -14,16 +14,17 @@ angular.module('foodpipeApp',['ngRoute'])
                 controllerAs: 'signupctrl'
               }).when('/homepage',{
                 templateUrl: 'views/homepage.html',
-                controller: 'HomepageController as hmepgectrl'
-                /*resolve:{
+                controller: 'HomePageController',
+                controllerAs: 'hmepgectrl',
+                resolve:{
                 auth:['$q','$location','UserService',function($q,$location,UserService){
                       return UserService.checkexpiry().then(function(success){},function(error)
                       {
-                           $location.path('/login');
+                           $location.path('/signin');
                            $location.replace();
                            return $q.reject(err);
                       });
-                }]}*/
+                }]}
               })
               .otherwise({redirectTo:'/'});
 			}]

@@ -36,9 +36,15 @@
             <div class="wrap">
                 <p class="form-title">
                     Sign In</p>
-                <form class="login" ng-submit="loginCtrl.login()" >
-                <input type="email" ng-model="loginCtrl.user.email" placeholder="Email"  required="" />
-                <input type="password" ng-model="loginCtrl.user.password" placeholder="Password" required=""/>
+                <form class="login" ng-submit="loginCtrl.login()" name="loginForm" novalidate>
+                <input name="loginemail" type="email" ng-model="loginCtrl.user.email" placeholder="Email"  required/>
+                <div ng-show="loginForm.$submitted"> 
+                 <span class="label label-danger" ng-show="loginForm.loginemail.$invalid">Enter a Email Address</span>
+                </div>
+                <input type="password" name="loginpassword" ng-model="loginCtrl.user.password" placeholder="Password" required/>
+                <div ng-show="loginForm.$submitted"> 
+                 <span class="label label-danger" ng-show="loginForm.loginpassword.$invalid">Enter a Password</span>
+                </div>
                 <input type="submit" value="Sign In" class="btn btn-primary btn" />
                 <div class="remember-forgot">
                     <div class="row">
