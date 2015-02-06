@@ -22,7 +22,32 @@ angular.module('foodpipeApp',['ngRoute'])
                       {
                            $location.path('/signin');
                            $location.replace();
-                           return $q.reject(err);
+                      });
+                }]}
+              })
+              .when('/dashboard',{
+                templateUrl: 'views/dashboard.html',
+                controller: 'DashboardPageController',
+                controllerAs: 'dashboardpgectrl',
+                resolve:{
+                auth:['$q','$location','UserService',function($q,$location,UserService){
+                      return UserService.checkexpiry().then(function(success){},function(error)
+                      {
+                           $location.path('/signin');
+                           $location.replace();
+                      });
+                }]}
+              })
+              .when('/menusupload',{
+                templateUrl: 'views/menusupload.html',
+                controller: 'menusuploadController',
+                controllerAs: 'menusuploadpgectrl',
+                resolve:{
+                auth:['$q','$location','UserService',function($q,$location,UserService){
+                      return UserService.checkexpiry().then(function(success){},function(error)
+                      {
+                           $location.path('/signin');
+                           $location.replace();
                       });
                 }]}
               })

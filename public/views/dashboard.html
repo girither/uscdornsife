@@ -1,0 +1,196 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootcards/1.0.0/css/bootcards-desktop.min.css">
+ <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootcards/1.0.0/js/bootcards.min.js"></script>
+  <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#/">Foodpipe</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+             <ul class="nav navbar-nav navbar-left">
+                <li class="active" ><a href="#/">Dashboard</a></li>
+                <li><a href="#/homepage">Orders</a></li>
+                <li><a href="#/">Discounts</a></li>
+                <li><a href="#/menusupload">Menus</a></li>
+                <li><a href="#/">Billing</a></li>
+                <li><a href="#/">Reports</a></li>
+              </ul>
+             <form  class="navbar-form navbar-right" ng-submit="">
+                 <span ng-hide="dashboardpgectrl.userservice.LoggedIn()">
+                 </span>
+                 <span ng-show="dashboardpgectrl.userservice.LoggedIn()">
+                  <a type="button" ng-click = "dashboardpgectrl.userservice.logout()"   class="btn btn-primary" >Log out</a>
+                  </span>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+    <div class="container bootcards-container" id="main">
+    
+<div class="row">
+
+  <div class="bootcards-cards">
+  
+    <div class="col-sm-6">
+  
+      <div class="panel panel-default bootcards-summary">
+  
+        <div class="panel-heading">
+          <h3 class="panel-title">Dashboard</h3>
+        </div>
+  
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-6 col-sm-4">
+              <a class="bootcards-summary-item" href="/contacts" data-pjax="#main"
+              data-title="Contacts" style="padding-top:35px;">
+                <i class="fa fa-3x fa-users"></i>
+                <h4>
+                  Contacts
+                  <span class="label label-info">40</span>
+                </h4>
+              </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <a class="bootcards-summary-item" href="/companies" data-pjax="#main"
+              data-title="Companies" style="padding-top:35px;">
+                <i class="fa fa-3x fa-building-o"></i>
+                <h4>
+                  Companies
+                  <span class="label label-info">40</span> 
+                </h4>
+              </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <a class="bootcards-summary-item" href="/notes" data-pjax="#main"
+              data-title="Notes" style="padding-top:35px;">
+                <i class="fa fa-3x fa-clipboard"></i>
+                <h4>
+                  Notes
+                  <span class="label label-info">40</span>
+                </h4>
+              </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <a class="bootcards-summary-item" href="/charts" data-pjax="#main"
+              data-title="Charts" style="padding-top:35px;">
+                <i class="fa fa-3x fa-bar-chart-o"></i>
+                <h4>
+                  Charts
+                  <span class="label label-info">4</span>
+                </h4>
+              </a>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+              <a class="bootcards-summary-item" href="#" style="padding-top:35px;">
+                <i class="fa fa-3x fa-files-o"></i>
+                <h4>
+                  Files
+                  <span class="label label-info">36</span>
+                </h4>
+              </a>
+            </div>
+          </div>
+        </div>
+  
+        <div class="panel-footer">
+          <small class="pull-left">Built with Bootcards - Summary Card</small>
+          <a class="btn btn-link btn-xs pull-right"
+              href="/snippets/summary"
+              data-toggle="modal"
+              data-target="#docsModal">
+              View Source</a>
+        </div>  
+  
+      </div>
+  
+    </div>
+    </div>
+
+      <div class="col-sm-6">
+
+      <div>
+      
+        <div class="panel panel-default bootcards-chart">
+          
+          <div class="panel-heading">
+            <h3 class="panel-title">Closed sales by team member - $000s (December)</h3>         
+          </div>
+      
+          <div>
+      
+            <!--bar chart-->
+            <div class="bootcards-chart-canvas" id="chartClosedSales"></div>
+      
+            <div class="panel-footer">
+              <button class="btn btn-default btn-block"
+                onClick="toggleChartData(event)">
+                <i class="fa fa-table"></i>
+                Show Data
+              </button>       
+            </div>
+          </div>
+          
+          <div class="panel-footer">
+            <small class="pull-left">Built with Bootcards - Chart Card</small>
+            <a class="btn btn-link btn-xs pull-right"
+                    href="/snippets/chart"
+                    data-toggle="modal"
+                    data-target="#docsModal">
+                    View Source</a>
+          </div>          
+      
+        </div>    
+      
+        <!-- Table Card data -->
+        <div class="panel panel-default bootcards-table" style="display:none">
+          <div class="panel-heading">
+            <h3 class="panel-title">Closed sales by team member - $000s (December)</h3>             
+          </div>  
+          <table class="table table-hover">
+            <thead>       
+              <tr class="active"><th>Name</th><th class="text-right">Sales value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Guy Bardsley</td><td class="text-right">$ 550</td></tr>
+              <tr><td>Adam Callahan</td><td class="text-right">$ 1,500</td></tr>
+              <tr><td>Arlo Geist</td><td class="text-right">$ 3,750</td></tr>
+              <tr><td>Sheila Hutchins</td><td class="text-right">$ 3,500</td></tr>
+              <tr><td>Jeanette Quijano</td><td class="text-right">$ 1,250</td></tr>
+              <tr><td>Simon Sweet</td><td class="text-right">$ 5,250</td></tr>
+              <tr><td><strong>Total</strong></td><td class="text-right"><strong>$ 15,800</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="panel-footer">
+            <button class="btn btn-default btn-block" onClick="toggleChartData(event, closedSalesChart)">
+              <i class="fa fa-bar-chart-o"></i>
+              Show Chart
+            </button>       
+          </div>
+          <div class="panel-footer">
+            <small class="pull-left">Built with Bootcards - Table Card</small>
+            <a class="btn btn-link btn-xs pull-right"
+                    href="/snippets/table"
+                    data-toggle="modal"
+                    data-target="#docsModal">
+                    View Source</a>
+          </div>                          
+        </div>
+      </div>
+      </div>
+
+
+    </div>
+    </div>

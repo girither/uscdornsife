@@ -44,6 +44,7 @@
                 <input type="password" name="loginpassword" ng-model="loginCtrl.user.password" placeholder="Password" required/>
                 <div ng-show="loginForm.$submitted"> 
                  <span class="label label-danger" ng-show="loginForm.loginpassword.$invalid">Enter a Password</span>
+                  <span class="label label-danger" ng-show="loginForm.loginpassword.$invalid">either the username or password is incorrect</span>
                 </div>
                 <input type="submit" value="Sign In" class="btn btn-primary btn" />
                 <div class="remember-forgot">

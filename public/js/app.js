@@ -1,5 +1,5 @@
 angular.module('foodpipeApp')
-			.factory('UserService',['$http','$window','$location',function($http,$window,$location){
+			.factory('UserService',['$http','$window','$location','$q',function($http,$window,$location,$q){
 				isLoggedin = false;
                 return {
                 LoggedIn: function() {
@@ -25,6 +25,10 @@ angular.module('foodpipeApp')
                   return $http.post('http://localhost:3000/checkTokenExpiry').then(function(response){
                        isLoggedin = true;
                        return response;
+                  },
+                  function(error){
+                       isLoggedin = false;
+                       return $q.reject(error);
                   });
                 },
                 logout:function(){

@@ -3,9 +3,18 @@ angular.module('foodpipeApp')
              {
                 this.userservice = UserService;
              }])
-		       .controller('AppController',['UserService',function(UserService)
+            .controller('DashboardPageController',['UserService',function(UserService)
              {
                 this.userservice = UserService;
+             }])
+		       .controller('AppController',['UserService','$location',function(UserService,$location)
+             {
+                this.userservice = UserService;
+                UserService.checkexpiry().then(function(success){},function(error)
+                      {
+                           $location.path('/');
+                           $location.replace();
+                      });
              }])
              .controller('LoginCtrl',['UserService','$location',function(UserService,$location)
              	{
