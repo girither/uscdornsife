@@ -7,6 +7,10 @@ angular.module('foodpipeApp')
              {
                 this.userservice = UserService;
              }])
+            .controller('MenuUploadController',['UserService',function(UserService)
+             {
+                this.userservice = UserService;
+             }])
 		       .controller('AppController',['UserService','$location',function(UserService,$location)
              {
                 this.userservice = UserService;
