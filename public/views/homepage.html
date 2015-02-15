@@ -74,19 +74,15 @@
             <p class="list-group-item-text">$12,000 Revenue YTD</p>
           </div>
         </div>
-      </a>
-      <a class="list-group-item" href="#">
-        <div class="row">
-          <div class="col-sm-6">
-            <i class="fa fa-3x fa-building-o pull-left"></i>
-            <h4 class="list-group-item-heading">Camion Corp</h4>
-            <p class="list-group-item-text">Tokyo, Japan</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text">Customer</p>
-            <p class="list-group-item-text">$75,000 Revenue YTD</p>
-          </div>
-        </div>
+          <div class="pull-right btn-group btn-group-xs" dropdown>
+                  <a href = "#inputItem" data-toggle = "modal" type="button" class="btn btn-danger btn-xs" ng-click="menusuploadpgectrl.deletecategory($index)">Delete</a>
+                </div>
+              <div class="pull-right btn-group">
+               &nbsp;
+                <button type="button" ng-click="menusuploadpgectrl.additemtocategory($index)" class="btn btn-xs btn-success">
+                  Add Item 
+                </button>
+              </div> 
       </a>
       <a class="list-group-item" href="#">
         <div class="row">

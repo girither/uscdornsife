@@ -1,4 +1,4 @@
-angular.module('foodpipeApp',['ngRoute'])
+angular.module('foodpipeApp',['ngRoute','ui.bootstrap'])
 			.config(['$routeProvider',function($routeProvider){
               $routeProvider.when('/signin', {
                 templateUrl: 'views/userlogin.html',
@@ -40,7 +40,7 @@ angular.module('foodpipeApp',['ngRoute'])
               })
               .when('/menusupload',{
                 templateUrl: 'views/menusupload.html',
-                controller: 'menusuploadController',
+                controller: 'MenuUploadController',
                 controllerAs: 'menusuploadpgectrl',
                 resolve:{
                 auth:['$q','$location','UserService',function($q,$location,UserService){
