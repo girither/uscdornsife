@@ -69,16 +69,12 @@
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">Menu Card</h3>
      <div class="btn-group pull-right visible-xs">
-                <a class="btn btn-primary" href="/contacts/VBMJHwcLX3Vx/edit"
-                  data-toggle="modal"
-                  data-target="#editModal">
+                <a class="btn btn-primary" >
                   <i class="fa fa-pencil"></i>
                   <span>Save Changes</span>
                 </a>
               </div>  
-              <a class="btn btn-primary pull-right hidden-xs" href="/contacts/VBMJHwcLX3Vx/edit"
-                data-toggle="modal"
-                data-target="#editModal">
+              <a class="btn btn-primary pull-right hidden-xs" >
                 <i class="fa fa-pencil"></i>
                 <span>Save Changes</span>
               </a>
@@ -89,11 +85,11 @@
       <accordion-heading>
         {{group.title}}
           <div class="pull-right btn-group btn-group-xs" >
-                  <a  type="button" class="btn btn-danger btn-xs" ng-click="menusuploadpgectrl.deletecategory($index);">Delete</a>
+                  <a  type="button" class="btn btn-danger btn-xs" ng-click="menusuploadpgectrl.deletecategory($index);$event.preventDefault();$event.stopPropagation()">Delete</a>
                 </div>
               <div class="pull-right btn-group">
                &nbsp;
-                <button type="button" ng-click="menusuploadpgectrl.additemtocategory($index)" class="btn btn-xs btn-success">
+                <button type="button" ng-click="menusuploadpgectrl.additemtocategory($index);$event.preventDefault();$event.stopPropagation()" class="btn btn-xs btn-success">
                   Add Item 
                 </button>
               </div> 
@@ -124,7 +120,7 @@
   <script type="text/ng-template" id="addNewItem.html">
   
     <div class="modal-content">
-      <form class="form-horizontal" name="priceForm" ng-submit = "ok()" validate>
+      <form class="form-horizontal" name="priceForm" ng-submit = "ok()" >
       <div class="modal-header">
           <div class="btn-group pull-left">
             <button class="btn btn-danger" ng-click = "cancel()" data-dismiss="modal">
@@ -139,7 +135,7 @@
         </div>
 
         <div class="modal-body">
-          <div class="form-group">
+          <div class="form-group" >
             <label class="col-xs-3 control-label">Item Name</label>
             <div class="col-xs-9">
               <input type="text" name="itemname" name = "itemname" ng-model = "item.itemname" required class="form-control" placeholder="Enter a Item Name" value="">
@@ -152,7 +148,7 @@
           <div class="form-group">
             <label class="col-xs-3 control-label">Price</label>
             <div class="col-xs-9">
-               <input type="number" name="Price" name = "price" ng-model = "item.itemprice" required class="form-control" placeholder="Enter a Price" value="">
+               <input type="number" name="Price" name = "price" required ng-model = "item.itemprice"  class="form-control" placeholder="Enter a Price" value="">
                 <div ng-show="priceForm.$submitted"> 
                  <span class="label label-danger" ng-show="priceForm.price.$invalid">Enter a Price</span>
                 </div>
