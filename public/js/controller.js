@@ -7,26 +7,26 @@ angular.module('foodpipeApp')
              {
                 this.userservice = UserService;
              }])
-            .controller('MenuUploadController',['UserService','$modal',function(UserService,$modal)
+            .controller('MenuUploadController',['UserService','MenuService','$modal',function(UserService,MenuService,$modal)
              {
                 this.userservice = UserService;
-                this.groups = [];
+                this.menuservice = MenuService;
                 this.categoryname = '';
                 this.addcategory = function()
                 {
-                     this.groups.push({title:this.categoryname,items:[]});
-                };
-                this.saveitemtocategory = function(item)
-                {
-                    this.groups[item.index].items.push({"item-name":item.itemname,"item-price":item.itemprice});
+                     this.menuservice.addcategory(this.categoryname);
                 };
                 this.deletecategory = function(index)
                 {
-                    this.groups.splice(index, 1);
+                    this.menuservice.deletecategory(index);
                 };
                 this.deleteitem = function(parentindex,index)
                 {
-                    this.groups[parentindex].items.splice(index, 1);  
+                   this.menuservice.deleteitem(parentindex,index);
+                };
+                this.savemenu = function()
+                {
+                   this.menuservice.savemenu();
                 };
                 this.additemtocategory = function (index) {
 
@@ -42,7 +42,7 @@ angular.module('foodpipeApp')
                 });
 
                 modalInstance.result.then(function (item) {
-                   this.saveitemtocategory(item);
+                   this.menuservice.saveitemtocategory(item);
                 }.bind(this));
             };
              }])

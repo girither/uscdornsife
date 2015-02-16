@@ -69,19 +69,19 @@
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">Menu Card</h3>
      <div class="btn-group pull-right visible-xs">
-                <a class="btn btn-primary" >
+                <a class="btn btn-primary" ng-click = "menusuploadpgectrl.savemenu()" >
                   <i class="fa fa-pencil"></i>
                   <span>Save Changes</span>
                 </a>
               </div>  
-              <a class="btn btn-primary pull-right hidden-xs" >
+              <a class="btn btn-primary pull-right hidden-xs" ng-click = "menusuploadpgectrl.savemenu()" >
                 <i class="fa fa-pencil"></i>
                 <span>Save Changes</span>
               </a>
    </div>
    <div class="modal-body">
      <accordion>
-    <accordion-group ng-repeat="group in menusuploadpgectrl.groups">
+    <accordion-group ng-repeat="group in menusuploadpgectrl.menuservice.getgroups()">
       <accordion-heading>
         {{group.title}}
           <div class="pull-right btn-group btn-group-xs" >

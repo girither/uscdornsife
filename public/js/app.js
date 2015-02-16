@@ -38,6 +38,37 @@ angular.module('foodpipeApp')
                 },
             };
             }])
+          .factory('MenuService',['$http',function($http){
+            groups =[];
+            return {
+                getgroups:function()
+                {
+                  return groups;
+                },
+                savemenu:function()
+                {
+                  return $http.post('http://localhost:3000/checkTokenExpiry').then(function(response){
+                       //Assign the menu to groups
+                  });
+                },
+                addcategory:function(categoryname)
+                {
+                     groups.push({title:categoryname,items:[]});
+                },
+                saveitemtocategory : function(item)
+                {
+                    groups[item.index].items.push({"item-name":item.itemname,"item-price":item.itemprice});
+                },
+                deletecategory:function(index)
+                {
+                    groups.splice(index, 1);
+                },
+                deleteitem :function(parentindex,index)
+                {
+                    groups[parentindex].items.splice(index, 1);  
+                },
+            };
+          }])
           .factory('authInterceptor', ['$window',function($window) {  
               var sessionInjector = {
               request: function(config) {
