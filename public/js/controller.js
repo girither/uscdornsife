@@ -33,7 +33,6 @@ angular.module('foodpipeApp')
                  var modalInstance = $modal.open({
                  templateUrl: 'addNewItem.html',
                  controller: 'ModalInstanceCtrl',
-                 windowClass: "modal fade in",
                  resolve: {
                  indexval: function () {
                     return index;

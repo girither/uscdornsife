@@ -1,0 +1,5 @@
+.modal-backdrop {
+    bottom: 0;
+    /* some fixes appear to use this, too: */
+    position: fixed;
+}
