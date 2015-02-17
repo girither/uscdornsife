@@ -7,11 +7,16 @@ angular.module('foodpipeApp')
              {
                 this.userservice = UserService;
              }])
-            .controller('MenuUploadController',['UserService','MenuService','$modal',function(UserService,MenuService,$modal)
+            .controller('MenuUploadController',['UserService','MenuService','$modal','$rootScope','$scope',function(UserService,MenuService,$modal,$rootScope,$scope)
              {
                 this.userservice = UserService;
                 this.menuservice = MenuService;
                 this.categoryname = '';
+                $rootScope.$on('$routeChangeStart', function(event, newUrl, oldUrl) {
+                    if ($scope.modalInstance) {
+                           $scope.modalInstance.dismiss('cancel');
+                   }
+                }); 
                 this.addcategory = function()
                 {
                      this.menuservice.addcategory(this.categoryname);
@@ -30,7 +35,7 @@ angular.module('foodpipeApp')
                 };
                 this.additemtocategory = function (index) {
 
-                 var modalInstance = $modal.open({
+                 $scope.modalInstance = $modal.open({
                  templateUrl: 'addNewItem.html',
                  controller: 'ModalInstanceCtrl',
                  resolve: {
@@ -40,7 +45,9 @@ angular.module('foodpipeApp')
                   }
                 });
 
-                modalInstance.result.then(function (item) {
+                
+
+                $scope.modalInstance.result.then(function (item) {
                    this.menuservice.saveitemtocategory(item);
                 }.bind(this));
             };
