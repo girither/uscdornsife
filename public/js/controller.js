@@ -1,7 +1,10 @@
 angular.module('foodpipeApp')
-		        .controller('HomePageController',['UserService',function(UserService)
+		        .controller('HomePageController',['UserService','socket',function(UserService,socket)
              {
                 this.userservice = UserService;
+                socket.on('messagetoyou',function(data){
+                    console.log('obtained data for only me yaaay: ',data);
+                });
              }])
             .controller('DashboardPageController',['UserService',function(UserService)
              {
@@ -44,8 +47,6 @@ angular.module('foodpipeApp')
                     }
                   }
                 });
-
-                
 
                 $scope.modalInstance.result.then(function (item) {
                    this.menuservice.saveitemtocategory(item);

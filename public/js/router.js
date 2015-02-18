@@ -1,4 +1,4 @@
-angular.module('foodpipeApp',['ngRoute','ui.bootstrap'])
+angular.module('foodpipeApp',['ngRoute','ui.bootstrap','ngActivityIndicator'])
 			.config(['$routeProvider',function($routeProvider){
               $routeProvider.when('/signin', {
                 templateUrl: 'views/userlogin.html',
@@ -43,8 +43,8 @@ angular.module('foodpipeApp',['ngRoute','ui.bootstrap'])
                 controller: 'MenuUploadController',
                 controllerAs: 'menusuploadpgectrl',
                 resolve:{
-                auth:['$q','$location','UserService',function($q,$location,UserService){
-                      return UserService.checkexpiry().then(function(success){},function(error)
+                auth:['$q','$location','MenuService',function($q,$location,MenuService){
+                      return MenuService.fetchgroups().then(function(success){},function(error)
                       {
                            $location.path('/signin');
                            $location.replace();

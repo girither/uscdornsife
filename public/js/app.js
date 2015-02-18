@@ -1,6 +1,6 @@
 angular.module('foodpipeApp')
-			.factory('UserService',['$http','$window','$location','$q',function($http,$window,$location,$q){
-				isLoggedin = false;
+			.factory('UserService',['$http','$window','$location','$q','socket',function($http,$window,$location,$q,socket){
+				var isLoggedin = false;
                 return {
                 LoggedIn: function() {
                      return isLoggedin;
@@ -10,6 +10,11 @@ angular.module('foodpipeApp')
                 {
                     isLoggedin = true;
                     $window.sessionStorage.token = response.data.token;
+                    $window.merchantdata = response.data.data;
+                    socket.emit('connectingWithMerchantNumber',{
+                       merchantNumber:$window.merchantdata
+                      }
+                    );
                     return response;
                 });
                 },
@@ -38,17 +43,49 @@ angular.module('foodpipeApp')
                 },
             };
             }])
-          .factory('MenuService',['$http',function($http){
+          .factory('socket',function($rootScope){
+                var socket = io.connect('http://localhost:3000');
+                return{
+                    getsocket:function()
+                    {
+                      return socket;
+                    },
+                    on:function(eventName,data){
+                        socket.on(eventName,data);
+                    },
+                    emit:function(eventName,data){
+                        socket.emit(eventName,data);
+                    }
+                };
+
+            })
+          .factory('MenuService',['$http','$activityIndicator',function($http,$activityIndicator){
             groups =[];
             return {
                 getgroups:function()
                 {
-                  return groups;
+                    return groups;
+                },
+                fetchgroups:function(){
+                  return $http.post('http://localhost:3000/getMenu').then(function(response){
+                       if (response.data){
+                        groups = response.data;
+                       }
+                       else {
+                        groups =[];
+                       }
+                        return response;
+                  }, function(error){
+                       return $q.reject(error);
+                  });
                 },
                 savemenu:function()
                 {
-                  return $http.post('http://localhost:3000/checkTokenExpiry').then(function(response){
-                       //Assign the menu to groups
+                  $activityIndicator.startAnimating();
+                  return $http.post('http://localhost:3000/uploadMenu',groups).then(function(response){
+                      $activityIndicator.stopAnimating(1000);
+                  },function(error){
+                       $activityIndicator.stopAnimating();
                   });
                 },
                 addcategory:function(categoryname)
