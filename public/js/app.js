@@ -82,7 +82,7 @@ angular.module('foodpipeApp')
                 savemenu:function()
                 {
                   $activityIndicator.startAnimating();
-                  return $http.post('http://localhost:3000/uploadMenu',groups).then(function(response){
+                  return $http.post('http://localhost:3000/uploadMenu',{menu:groups}).then(function(response){
                       $activityIndicator.stopAnimating(1000);
                   },function(error){
                        $activityIndicator.stopAnimating();
