@@ -1413,6 +1413,8 @@ th {
   line-height: 1.42857143;
   vertical-align: top;
   border-top: 1px solid #282828;
+  background-color: #FFFFFF;
+  color:#000000;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
@@ -1461,7 +1463,8 @@ th {
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-  background-color: #282828;
+  background-color: #F8F8F8;
+  color:#000000;
 }
 table col[class*="col-"] {
   position: static;
@@ -1486,13 +1489,13 @@ table th[class*="col-"] {
 .table > thead > tr.active > th,
 .table > tbody > tr.active > th,
 .table > tfoot > tr.active > th {
-  background-color: #282828;
+  background-color: #FFFFFF;
 }
 .table-hover > tbody > tr > td.active:hover,
 .table-hover > tbody > tr > th.active:hover,
 .table-hover > tbody > tr.active:hover > td,
 .table-hover > tbody > tr.active:hover > th {
-  background-color: #1b1b1b;
+  background-color: #282828;
 }
 .table > thead > tr > td.success,
 .table > tbody > tr > td.success,
