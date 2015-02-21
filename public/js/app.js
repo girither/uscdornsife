@@ -59,6 +59,42 @@ angular.module('foodpipeApp')
                 };
 
             })
+         .factory('NotificationService',['$http','$location',function($http,$location){
+          notifications = [];
+          orderdetail = [];
+          customerdetails ={};
+          return {
+               getnotification:function()
+               {
+                  return notifications;
+               },
+               getorderdetail:function(){
+                  return orderdetail;
+               },
+               getcustomerdetails:function(){
+                  return customerdetails;
+               },
+               filterorderdetails:function(index){
+                  orderdetail = notifications[index].Orders[0].items;
+                  customerdetails = notifications[index].CustomerDetails;
+               },
+               fetchnotification:function(){
+                 return $http.get('./mock/pending_notification.json').then(function(response){
+                       if (response.data){
+                        notifications = response.data;
+                        orderdetail = notifications[0].Orders[0].items;
+                        customerdetails = notifications[0].CustomerDetails;
+                       }
+                       else {
+                        notifications =[];
+                       }
+                        return response;
+                  }, function(error){
+                       return $q.reject(error);
+                  });
+               }
+          };
+         }]) 
           .factory('MenuService',['$http','$activityIndicator',function($http,$activityIndicator){
             groups =[];
             return {

@@ -1,18 +1,18 @@
 angular.module('foodpipeApp')
-		        .controller('HomePageController',['UserService','socket',function(UserService,socket)
+		        .controller('HomePageController',['socket','NotificationService',function(socket,NotificationService)
              {
-                this.userservice = UserService;
+                this.notificationservice = NotificationService;
                 socket.on('messagetoyou',function(data){
                     console.log('obtained data for only me yaaay: ',data);
                 });
+                this.currentindex = 0;
              }])
             .controller('DashboardPageController',['UserService',function(UserService)
              {
                 this.userservice = UserService;
              }])
-            .controller('MenuUploadController',['UserService','MenuService','$modal','$rootScope','$scope',function(UserService,MenuService,$modal,$rootScope,$scope)
+            .controller('MenuUploadController',['MenuService','$modal','$rootScope','$scope',function(MenuService,$modal,$rootScope,$scope)
              {
-                this.userservice = UserService;
                 this.menuservice = MenuService;
                 this.categoryname = '';
                 $rootScope.$on('$routeChangeStart', function(event, newUrl, oldUrl) {

@@ -17,9 +17,8 @@ angular.module('foodpipeApp',['ngRoute','ui.bootstrap','ngActivityIndicator'])
                 controller: 'HomePageController',
                 controllerAs: 'hmepgectrl',
                 resolve:{
-                auth:['$q','$location','UserService',function($q,$location,UserService){
-                      return UserService.checkexpiry().then(function(success){},function(error)
-                      {
+                auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
+                      return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
                            $location.path('/signin');
                            $location.replace();
                       });

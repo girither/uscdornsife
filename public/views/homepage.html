@@ -16,7 +16,13 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="active" class="nav navbar-nav side-nav">
                     <li ><a href="#/dashboard"><i class="fa fa-bullseye"></i> Dashboard</a></li>
-                    <li class="selected"><a href="#/homepage"><i class="fa fa-tasks"></i>Orders</a></li>
+                    <li  class="dropdown selected"><a class="dropdown-toggle" data-toggle="dropdown"  href="#/homepage"><i class="fa fa-tasks"></i>Orders</a>
+                         <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Home Delivery</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Take Away</a></li>
+                            <li><a href="#" ><i class="fa fa-power-off"></i> Table Order</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#/menusupload"><i class="fa fa-globe"></i>Menus</a></li>
                     <li><a href="#/discoiunts"><i class="fa fa-list-ol"></i>Discounts</a></li>
                     <!--li><a href="register.html"><i class="fa fa-font"></i> Register</a></li>
@@ -63,8 +69,17 @@
                 </ul>
             </div>
         </nav>
+          <div class="row">
+          <div class = "col-md-6 col-md-offset-5">
+              <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">Pending</button>
+                <button type="button" class="btn btn-default">Accepted</button>
+                <button type="button" class="btn btn-default">Rejected</button>
+              </div>
+            </div>
+            </div>
+          <div id="page-wrapper" >
 
-          <div id="page-wrapper">
              <div class="row">
                  <div class="col-md-6">
   <div class="panel panel-default">
@@ -72,35 +87,26 @@
     <h3 class="panel-title">Notification</h3>
   </div>
     <div class="list-group">
-      <a class="list-group-item" href="#">
+      <a class="list-group-item" ng-click="$parent.selected = notification;hmepgectrl.notificationservice.filterorderdetails($index)" ng-class="{active:selected==notification}" ng-repeat="notification in hmepgectrl.notificationservice.getnotification()">
         <div class="row">
           <div class="col-sm-6">
             <i class="fa fa-3x fa-building-o pull-left"></i>
-            <h4 class="list-group-item-heading">Alparvis Ltd</h4>
-            <p class="list-group-item-text">London, UK</p>
+            <h4 class="list-group-item-heading">{{notification['CustomerDetails'].Name}}</h4>
+            <p class="list-group-item-text">{{notification['CustomerDetails'].PhoneNumber}}</p>
           </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text">Contractor</p>
-            <p class="list-group-item-text">$12,000 Revenue YTD</p>
+          <div class="col-sm-3">
+            <p class="list-group-item-text">{{notification['Order-Summary'].Total | currency :'INR' }}</p>
+            <p class="list-group-item-text">{{notification['Order-Summary'].TotalQuantity | number }}</p>
           </div>
-        </div>
-      </a>
-      <a class="list-group-item" href="#">
-        <div class="row">
-          <div class="col-sm-6">
-            <i class="fa fa-3x fa-building-o pull-left"></i>
-            <h4 class="list-group-item-heading">Derenden Systems</h4>
-            <p class="list-group-item-text">Albuquerque, USA</p>
-          </div>
-          <div class="col-sm-6">
-            <p class="list-group-item-text">Supplier</p>
-            <p class="list-group-item-text">$1.3m Revenue YTD</p>
+           <div class="col-sm-3">
+            <p class="list-group-item-text">Time Sent</p>
+            <p class="list-group-item-text">{{notification['TimeSent']}}</p>
           </div>
         </div>
-      </a>
+         </a>
+        </div>
     </div>
   </div>
-</div>
 
 
 
@@ -116,9 +122,7 @@
         <tr class="active"><th>Name</th><th>Quantity</th><th>Rate</th></tr>
       </thead>
       <tbody>
-        <tr><td>Guy Bardsley</td><td>2750</td><td>4000</td></tr>
-        <tr><td>Adam Callahan</td><td>3300</td><td>4000</td></tr>
-        <tr><td><strong>Total</strong></td><td><strong>6050</strong></td><td><strong>8000</strong></td></tr>
+        <tr ng-repeat="orderdetail in hmepgectrl.notificationservice.getorderdetail()" ><td>{{orderdetail['item-name']}}</td><td>{{orderdetail['item-price']}}</td><td>{{orderdetail['item-quantity']}}</td></tr>
       </tbody>
     </table>
   </div>
@@ -138,6 +142,37 @@
   </div>
 </div>
 </div>
+
+  
+
+        <!--contact details & notes-->
+        
+        <div id="contactCard" class="col-md-6 col-md-offset-6" >
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">
+            <h3 class="panel-title">Customer Details
+                         <a class="btn btn-warning pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+                <i class="fa fa-pencil"></i>
+                <span>Edit</span>
+              </a>
+                   </h3> 
+            </div>
+            <div class="list-group" >
+              <a class="list-group-item">
+                <label>Name</label>
+                <h4 class="list-group-item-heading" ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Name" />
+              </a>
+              <a class="list-group-item">
+                <label>Phone</label>
+                <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().PhoneNumber" />
+              </a>
+              <a class="list-group-item">
+                <label>Email</label>
+                <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Email" />
+              </a>
+            </div>
+        </div>
 
 </div>
 </div>

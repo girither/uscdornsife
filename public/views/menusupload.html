@@ -92,7 +92,8 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                    <h3 class="panel-title">Menu Card
-                         <a class="btn btn-primary pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+                   
+                         <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
                 <i class="fa fa-pencil"></i>
                 <span>Save Changes</span>
               </a>
@@ -195,55 +196,4 @@
 
         </div>
 
-<!--div class="col-md-6 col-md-offset-3  bootcards-cards">
-<div class="panel panel-default">
-  <div class="panel-heading clearfix">
-    <h3 class="panel-title pull-left">Menu Card</h3>
-     <div class="btn-group pull-right visible-xs">
-                <a class="btn btn-primary" ng-click = "menusuploadpgectrl.savemenu()" >
-                  <i class="fa fa-pencil"></i>
-                  <span>Save Changes</span>
-                </a>
-              </div>  
-              <a class="btn btn-primary pull-right hidden-xs" ng-click = "menusuploadpgectrl.savemenu()" >
-                <i class="fa fa-pencil"></i>
-                <span>Save Changes</span>
-              </a>
-   </div>
-   <div class="modal-body">
-     <accordion>
-    <accordion-group ng-repeat="group in menusuploadpgectrl.menuservice.getgroups()">
-      <accordion-heading>
-        {{group.title}}
-          <div class="pull-right btn-group btn-group-xs" >
-                  <a  type="button" class="btn btn-danger btn-xs" ng-click="menusuploadpgectrl.deletecategory($index);$event.preventDefault();$event.stopPropagation()">Delete</a>
-                </div>
-              <div class="pull-right btn-group">
-               &nbsp;
-                <button type="button" ng-click="menusuploadpgectrl.additemtocategory($index);$event.preventDefault();$event.stopPropagation()" class="btn btn-xs btn-success">
-                  Add Item 
-                </button>
-              </div> 
-      </accordion-heading>
-      <ul list class="list-group">
-        <li class = "list-group-item" ng-repeat="item in group.items"> 
-         <div class="pull-right btn-group btn-group-xs" >
-                  <a type="button" class="btn btn-danger btn-xs" ng-click="menusuploadpgectrl.deleteitem($parent.$index,$index);">Delete</a>
-                </div>
-               
-                Rs {{item['item-price']}}
-                <div class=" pull right col-sm-6">
-                  <p class="list-group-item-text"> {{item['item-name']}}</p>
-                </div>
-               
-                </li>
-      </ul>
-    </accordion-group>   
-  </accordion>
-    </div>
-  <div class="panel-footer">
-    <small>Add Menu card</small>
-  </div>
-</div>
-</div-->
 

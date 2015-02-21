@@ -8,6 +8,7 @@ app.listen(3001,function(){
 
 app.use(express.static(__dirname + '/public'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+app.use('/mock',  express.static(__dirname + '/mock'));
 
 app.get('/',function(req,res){
 	res.sendfile('./index.html');

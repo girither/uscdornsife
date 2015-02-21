@@ -1,0 +1,21 @@
+[{
+"CustomerDetails":{"Name":"Giridhar Bhagespur","PhoneNumber":"974033517","Email":"giridharb54@gmail.com"},
+"Order-Summary":{"Total":2345,"TotalQuantity":12},
+"Orders":[{"items":[{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2},{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2},{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2}]}],
+"TimeSent":"12:45",
+"Status":"Unpaid"	
+},
+{
+"CustomerDetails":{"Name":"Giridhar Bhagespur","PhoneNumber":"974033517","Email":"giridharb54@gmail.com"},
+"Order-Summary":{"Total":2345,"TotalQuantity":12},
+"Orders":[{"items":[{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2},{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2},{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2}]}],
+"TimeSent":"12:45",
+"Status":"Unpaid"	
+},
+{
+"CustomerDetails":{"Name":"Giridhar Bhagespur","PhoneNumber":"974033517","Email":"giridharb54@gmail.com"},
+"Order-Summary":{"Total":2345,"TotalQuantity":12},
+"Orders":[{"items":[{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2},{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2},{"item-name":"Choley Bhatura","item-price":27,"item-quantity":2}]}],
+"TimeSent":"12:45",
+"Status":"Unpaid"	
+}]
