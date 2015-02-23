@@ -74,6 +74,42 @@ angular.module('foodpipeApp')
                getcustomerdetails:function(){
                   return customerdetails;
                },
+               getnotificationcount:function(){
+
+                 return notifications.length;
+               },
+               acceptednotification:function()
+               {
+                return $http.get('./mock/pending_notification.json').then(function(response){
+                 if (response.data){
+                  notifications = response.data;
+                  orderdetail = notifications[0].Orders[0].items;
+                  customerdetails = notifications[0].CustomerDetails;
+                }
+                else {
+                  notifications =[];
+                }
+                return response;
+              }, function(error){
+               return $q.reject(error);
+             });
+               },
+               rejectednotification:function()
+               {
+                 return $http.get('./mock/pending_notification.json').then(function(response){
+                 if (response.data){
+                  notifications = response.data;
+                  orderdetail = notifications[0].Orders[0].items;
+                  customerdetails = notifications[0].CustomerDetails;
+                }
+                else {
+                  notifications =[];
+                }
+                return response;
+              }, function(error){
+               return $q.reject(error);
+             });
+               },
                filterorderdetails:function(index){
                   orderdetail = notifications[index].Orders[0].items;
                   customerdetails = notifications[index].CustomerDetails;

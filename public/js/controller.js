@@ -1,11 +1,24 @@
 angular.module('foodpipeApp')
-		        .controller('HomePageController',['socket','NotificationService',function(socket,NotificationService)
+		        .controller('HomePageController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
              {
                 this.notificationservice = NotificationService;
+                $scope.radioModel = "Pending";
                 socket.on('messagetoyou',function(data){
                     console.log('obtained data for only me yaaay: ',data);
                 });
-                this.currentindex = 0;
+                this.pendingnotification = function()
+                {
+                   this.notificationservice.fetchnotification(); 
+                };
+                this.acceptednotification = function()
+                {
+                  this.notificationservice.acceptednotification();
+                };
+                this.rejectednotification = function()
+                {
+                   this.notificationservice.rejectednotification();
+                };
+                //this.currentindex = 0;
              }])
             .controller('DashboardPageController',['UserService',function(UserService)
              {

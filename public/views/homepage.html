@@ -70,11 +70,11 @@
             </div>
         </nav>
           <div class="row">
-          <div class = "col-md-6 col-md-offset-5">
+          <div class = "col-md-6 col-md-offset-4">
               <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default">Pending</button>
-                <button type="button" class="btn btn-default">Accepted</button>
-                <button type="button" class="btn btn-default">Rejected</button>
+                 <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.pendingnotification()" btn-radio="'Pending'" uncheckable>Pending <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
+                 <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.acceptednotification()" btn-radio="'Accepted'" uncheckable>Accepted <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
+                 <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.rejectednotification()" btn-radio="'Rejected'" uncheckable>Rejected <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
               </div>
             </div>
             </div>
@@ -107,14 +107,18 @@
         </div>
     </div>
   </div>
+ 
 
 
-
-<div class="col-md-6">
+<div class="col-md-6 ">
  
   <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Order Details</h3>
+    <h3 class="panel-title">Order Details
+     <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+                <i class="fa fa-pencil"></i>
+                <span>Edit</span>
+              </a></h3>
   </div>
   <div class="table-responsive">
     <table class="table table-hover">
@@ -143,16 +147,16 @@
 </div>
 </div>
 
-  
+ 
 
         <!--contact details & notes-->
         
-        <div id="contactCard" class="col-md-6 col-md-offset-6" >
+        <div id="contactCard" class="col-md-6" >
           
           <div class="panel panel-default">
             <div class="panel-heading">
             <h3 class="panel-title">Customer Details
-                         <a class="btn btn-warning pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+                         <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
                 <i class="fa fa-pencil"></i>
                 <span>Edit</span>
               </a>
@@ -161,19 +165,18 @@
             <div class="list-group" >
               <a class="list-group-item">
                 <label>Name</label>
-                <h4 class="list-group-item-heading" ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Name" />
+                <h4 class="list-group-item-heading" ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Name" ></h4>
               </a>
               <a class="list-group-item">
                 <label>Phone</label>
-                <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().PhoneNumber" />
+                <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().PhoneNumber" ></h4>
               </a>
               <a class="list-group-item">
                 <label>Email</label>
-                <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Email" />
+                <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Email" ></h4>
               </a>
             </div>
         </div>
-
-</div>
+        </div>
 </div>
 </div>
