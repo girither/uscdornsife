@@ -1,4 +1,4 @@
-angular.module('foodpipeApp',['ngRoute','ui.bootstrap','ngActivityIndicator'])
+angular.module('foodpipeApp',['ngRoute','ui.bootstrap','cfp.loadingBar', 'ngAnimate'])
 			.config(['$routeProvider',function($routeProvider){
               $routeProvider.when('/signin', {
                 templateUrl: 'views/userlogin.html',

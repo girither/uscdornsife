@@ -2072,7 +2072,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-default .badge {
   color: #fff;
-  background-color: #333;
+  background-color:#2a9fd6;
 }
 .btn-primary {
   color: #ffffff;
@@ -6280,3 +6280,18 @@ table.tablesorter thead tr th:hover {
                     right: auto;
                 }
         }
+#loading-bar .bar {
+  background: #ff0000;
+}
+#loading-bar-spinner .spinner-icon {
+  margin-top: 50px;
+  margin-left:230px; 
+  border-top-color:  #2c3e50;
+  border-left-color: #2c3e50;
+}
+#loading-bar .peg {
+  -moz-box-shadow: #2c3e50 1px 0 6px 1px;
+  -ms-box-shadow: #2c3e50 1px 0 6px 1px;
+  -webkit-box-shadow: #2c3e50 1px 0 6px 1px;
+  box-shadow: #2c3e50 1px 0 6px 1px;
+}

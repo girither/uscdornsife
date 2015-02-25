@@ -16,15 +16,15 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="active" class="nav navbar-nav side-nav">
                     <li ><a href="#/dashboard"><i class="fa fa-bullseye"></i> Dashboard</a></li>
-                    <li  class="dropdown selected"><a class="dropdown-toggle" data-toggle="dropdown"  href="#/homepage"><i class="fa fa-tasks"></i>Orders</a>
+                    <li  class="dropdown" ><a class="dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-tasks"></i> Orders   <b class="caret"></b></a>
                          <ul class="dropdown-menu">
                             <li><a href="#"><i class="fa fa-user"></i> Home Delivery</a></li>
                             <li><a href="#"><i class="fa fa-gear"></i> Take Away</a></li>
-                            <li><a href="#" ><i class="fa fa-power-off"></i> Table Order</a></li>
+                            <li class="selected"><a href="#/homepage"  ><i class="fa fa-power-off"></i> Table Order</a></li>
                         </ul>
                     </li>
-                    <li><a href="#/menusupload"><i class="fa fa-globe"></i>Menus</a></li>
-                    <li><a href="#/discoiunts"><i class="fa fa-list-ol"></i>Discounts</a></li>
+                    <li><a href="#/menusupload"><i class="fa fa-globe"></i> Menus</a></li>
+                    <li><a href="#/discounts"><i class="fa fa-list-ol"></i> Discounts</a></li>
                     <!--li><a href="register.html"><i class="fa fa-font"></i> Register</a></li>
                     <li><a href="timeline.html"><i class="fa fa-font"></i> Timeline</a></li>
                     <li><a href="forms.html"><i class="fa fa-list-ol"></i> Forms</a></li>
@@ -95,8 +95,8 @@
             <p class="list-group-item-text">{{notification['CustomerDetails'].PhoneNumber}}</p>
           </div>
           <div class="col-sm-3">
-            <p class="list-group-item-text">{{notification['Order-Summary'].Total | currency :'INR' }}</p>
-            <p class="list-group-item-text">{{notification['Order-Summary'].TotalQuantity | number }}</p>
+            <p class="list-group-item-text">{{notification['OrderSummary'].Total | currency :'INR' }}</p>
+            <p class="list-group-item-text">{{notification['OrderSummary'].TotalQuantity | number }}</p>
           </div>
            <div class="col-sm-3">
             <p class="list-group-item-text">Time Sent</p>
@@ -126,7 +126,7 @@
         <tr class="active"><th>Name</th><th>Quantity</th><th>Rate</th></tr>
       </thead>
       <tbody>
-        <tr ng-repeat="orderdetail in hmepgectrl.notificationservice.getorderdetail()" ><td>{{orderdetail['item-name']}}</td><td>{{orderdetail['item-price']}}</td><td>{{orderdetail['item-quantity']}}</td></tr>
+        <tr ng-repeat="orderdetail in hmepgectrl.notificationservice.getorderdetail()" ><td>{{orderdetail['itemname']}}</td><td>{{orderdetail['itemprice']}}</td><td>{{orderdetail['itemquantity']}}</td></tr>
       </tbody>
     </table>
   </div>

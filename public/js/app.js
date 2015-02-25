@@ -59,7 +59,7 @@ angular.module('foodpipeApp')
                 };
 
             })
-         .factory('NotificationService',['$http','$location',function($http,$location){
+         .factory('NotificationService',['$http','$location','cfpLoadingBar',function($http,$location,cfpLoadingBar){
           notifications = [];
           orderdetail = [];
           customerdetails ={};
@@ -80,7 +80,9 @@ angular.module('foodpipeApp')
                },
                acceptednotification:function()
                {
+                cfpLoadingBar.start();
                 return $http.get('./mock/pending_notification.json').then(function(response){
+                  cfpLoadingBar.complete();
                  if (response.data){
                   notifications = response.data;
                   orderdetail = notifications[0].Orders[0].items;
@@ -96,7 +98,9 @@ angular.module('foodpipeApp')
                },
                rejectednotification:function()
                {
+                 cfpLoadingBar.start();
                  return $http.get('./mock/pending_notification.json').then(function(response){
+                  cfpLoadingBar.complete();
                  if (response.data){
                   notifications = response.data;
                   orderdetail = notifications[0].Orders[0].items;
@@ -115,7 +119,9 @@ angular.module('foodpipeApp')
                   customerdetails = notifications[index].CustomerDetails;
                },
                fetchnotification:function(){
+                 cfpLoadingBar.start();
                  return $http.get('./mock/pending_notification.json').then(function(response){
+                       cfpLoadingBar.complete();
                        if (response.data){
                         notifications = response.data;
                         orderdetail = notifications[0].Orders[0].items;
@@ -131,7 +137,7 @@ angular.module('foodpipeApp')
                }
           };
          }]) 
-          .factory('MenuService',['$http','$activityIndicator',function($http,$activityIndicator){
+          .factory('MenuService',['$http','cfpLoadingBar',function($http,cfpLoadingBar){
             groups =[];
             return {
                 getgroups:function()
@@ -153,9 +159,9 @@ angular.module('foodpipeApp')
                 },
                 savemenu:function()
                 {
-                  $activityIndicator.startAnimating();
+                  cfpLoadingBar.start();
                   return $http.post('http://localhost:3000/uploadMenu',{menu:groups}).then(function(response){
-                      $activityIndicator.stopAnimating(1000);
+                      cfpLoadingBar.complete();
                   },function(error){
                        $activityIndicator.stopAnimating();
                   });
