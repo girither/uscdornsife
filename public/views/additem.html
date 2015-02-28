@@ -1,0 +1,42 @@
+<div class="modal-content">
+    <form class="form-horizontal" name="priceForm" ng-submit = "ok()" >
+      <div class="modal-header">
+        <div class="btn-group pull-left">
+          <button class="btn btn-danger" ng-click = "cancel()" data-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+        <div class="btn-group pull-right">
+          <input type="submit" value = "Save" class="btn btn-success" />
+        </div>
+
+        <h3 class="modal-title">Add New Item</h3>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group" >
+          <label class="col-xs-3 control-label">Item Name</label>
+          <div class="col-xs-9">
+            <input type="text" name="itemname" name = "itemname" ng-model = "item.itemname" required class="form-control" placeholder="Enter a Item Name" value="">
+            <div ng-show="priceForm.$submitted"> 
+             <span class="label label-danger" ng-show="priceForm.itemname.$invalid">Enter a Item Name</span>
+           </div>
+         </div>
+       </div>
+       
+       <div class="form-group">
+        <label class="col-xs-3 control-label">Price</label>
+        <div class="col-xs-9">
+         <input type="number" name="Price" name = "price" required ng-model = "item.itemprice"  class="form-control" placeholder="Enter a Price" value="">
+         <div ng-show="priceForm.$submitted"> 
+           <span class="label label-danger" ng-show="priceForm.price.$invalid">Enter a Price</span>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <div class="modal-footer">
+    <small class="pull-left">Add new item card</small>
+  </div>
+</form>
+</div>

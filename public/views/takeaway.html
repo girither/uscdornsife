@@ -1,0 +1,111 @@
+<div class="row">
+
+  <div class = "col-md-6 col-md-offset-4">
+    <div class="btn-group" role="group" aria-label="...">
+     <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.pendingnotification()" btn-radio="'Pending'" uncheckable>Pending <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
+     <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.acceptednotification()" btn-radio="'Accepted'" uncheckable>Accepted <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
+     <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.rejectednotification()" btn-radio="'Rejected'" uncheckable>Rejected <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
+   </div>
+ </div>
+</div>
+<div id="page-wrapper" >
+
+ <div class="row">
+   <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Notification</h3>
+      </div>
+      <div class="list-group">
+        <a class="list-group-item" ng-click="$parent.selected = notification;hmepgectrl.notificationservice.filterorderdetails($index)" ng-class="{active:selected==notification}" ng-repeat="notification in hmepgectrl.notificationservice.getnotification()">
+          <div class="row">
+            <div class="col-sm-6">
+              <i class="fa fa-3x fa-building-o pull-left"></i>
+              <h4 class="list-group-item-heading">{{notification['CustomerDetails'].Name}}</h4>
+              <p class="list-group-item-text">{{notification['CustomerDetails'].PhoneNumber}}</p>
+            </div>
+            <div class="col-sm-3">
+              <p class="list-group-item-text">{{notification['OrderSummary'].Total | currency :'INR' }}</p>
+              <p class="list-group-item-text">{{notification['OrderSummary'].TotalQuantity | number }}</p>
+            </div>
+            <div class="col-sm-3">
+              <p class="list-group-item-text">Time Sent</p>
+              <p class="list-group-item-text">{{notification['TimeSent']}}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-6 ">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Order Details
+         <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+          <i class="fa fa-pencil"></i>
+          <span>Edit</span>
+        </a></h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr class="active"><th>Name</th><th>Quantity</th><th>Rate</th></tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="orderdetail in hmepgectrl.notificationservice.getorderdetail()" ><td>{{orderdetail['itemname']}}</td><td>{{orderdetail['itemprice']}}</td><td>{{orderdetail['itemquantity']}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+
+        <button class="btn btn-xs btn-success">
+          <i class="fa fa-check"></i>
+          Accept
+        </button>
+
+
+        <button class="btn btn-xs pull-right btn-danger">
+          <i class="fa fa-times"></i>
+          Reject
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--contact details & notes-->
+
+  <div id="contactCard" class="col-md-6" >
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Customer Details
+         <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+          <i class="fa fa-pencil"></i>
+          <span>Edit</span>
+        </a>
+      </h3> 
+    </div>
+    <div class="list-group" >
+      <a class="list-group-item">
+        <label>Name</label>
+        <h4 class="list-group-item-heading" ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Name" ></h4>
+      </a>
+      <a class="list-group-item">
+        <label>Phone</label>
+        <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().PhoneNumber" ></h4>
+      </a>
+      <a class="list-group-item">
+        <label>Email</label>
+        <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Email" ></h4>
+      </a>
+    </div>
+  </div>
+</div>
+</div>

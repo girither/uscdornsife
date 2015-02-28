@@ -24,18 +24,14 @@ angular.module('foodpipeApp')
              {
                 this.userservice = UserService;
              }])
-            .controller('MenuUploadController',['MenuService','$modal','$rootScope','$scope',function(MenuService,$modal,$rootScope,$scope)
+            .controller('MenuUploadController',['MenuService','$modal','$scope',function(MenuService,$modal,$scope)
              {
                 this.menuservice = MenuService;
                 this.categoryname = '';
-                $rootScope.$on('$routeChangeStart', function(event, newUrl, oldUrl) {
-                    if ($scope.modalInstance) {
-                           $scope.modalInstance.dismiss('cancel');
-                   }
-                }); 
                 this.addcategory = function()
                 {
                      this.menuservice.addcategory(this.categoryname);
+                     this.categoryname = '';
                 };
                 this.deletecategory = function(index)
                 {
@@ -49,26 +45,14 @@ angular.module('foodpipeApp')
                 {
                    this.menuservice.savemenu();
                 };
-                this.additemtocategory = function (index) {
-
-                 $scope.modalInstance = $modal.open({
-                 templateUrl: 'addNewItem.html',
-                 controller: 'ModalInstanceCtrl',
-                 resolve: {
-                 indexval: function () {
-                    return index;
-                    }
-                  }
-                });
-
-                $scope.modalInstance.result.then(function (item) {
-                   this.menuservice.saveitemtocategory(item);
-                }.bind(this));
-            };
              }])
-           .controller('ModalInstanceCtrl',function($scope, $modalInstance, indexval)
+           .controller('ModalInstanceCtrl',function($scope, $modalInstance, indexval,$state,$rootScope)
              {
+                   $rootScope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
+                    
+                           $modalInstance.dismiss('cancel');
                    
+                });   
                    $scope.item = {
                       itemname:'',
                       itemprice:'',
@@ -77,10 +61,11 @@ angular.module('foodpipeApp')
 
                   $scope.ok = function () {
                       $modalInstance.close($scope.item);
-                     
+                      $state.transitionTo('homepage.menusupload'); 
                   };
                   $scope.cancel = function () {
                       $modalInstance.dismiss('cancel');
+                      $state.transitionTo('homepage.menusupload');
                   };
                   
              })
@@ -93,7 +78,7 @@ angular.module('foodpipeApp')
                            $location.replace();
                       });
              }])
-             .controller('LoginCtrl',['UserService','$location',function(UserService,$location)
+             .controller('LoginCtrl',['UserService','$location','$state',function(UserService,$location,$state)
              	{
              		this.user = {
              			email:'',
@@ -101,7 +86,7 @@ angular.module('foodpipeApp')
              		};
              		this.login = function(){
                           UserService.login(this.user).then(function(success){
-                                 $location.path('/homepage'); 
+                                 $state.transitionTo('homepage.tableorder');
                                  $location.replace();
                           },function(error){
                           	this.errormessage = error.data;
@@ -109,7 +94,7 @@ angular.module('foodpipeApp')
              		};
              	}
              	])
-               .controller('SignupController',['UserService','$location',function(UserService,$location)
+               .controller('SignupController',['UserService','$location','$state',function(UserService,$location,$state)
              	{
              		this.user = {
              			fullname:'',
@@ -119,7 +104,7 @@ angular.module('foodpipeApp')
              		};
              		this.signup = function(){
                           UserService.signup(this.user).then(function(success){
-                                 $location.path('/homepage'); 
+                                 $state.transitionTo('homepage.tableorder');
                                  $location.replace();
                           },function(error){
                           	this.errormessage = error.data;

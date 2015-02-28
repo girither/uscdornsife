@@ -24,6 +24,30 @@ angular.module('foodpipeApp',['ngRoute','ui.bootstrap','cfp.loadingBar', 'ngAnim
                       });
                 }]}
               })
+              .when('/homedelivery',{
+                templateUrl: 'views/homedelivery.html',
+                controller: 'HomeDeliveryController',
+                controllerAs: 'hmedeliveryctrl',
+                resolve:{
+                auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
+                      return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
+                           $location.path('/signin');
+                           $location.replace();
+                      });
+                }]}
+              })
+              .when('/takeaway',{
+                templateUrl: 'views/takeaway.html',
+                controller: 'TakeawayController',
+                controllerAs: 'takeawayctrl',
+                resolve:{
+                auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
+                      return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
+                           $location.path('/signin');
+                           $location.replace();
+                      });
+                }]}
+              })
               .when('/dashboard',{
                 templateUrl: 'views/dashboard.html',
                 controller: 'DashboardPageController',
