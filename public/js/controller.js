@@ -1,7 +1,8 @@
 angular.module('foodpipeApp')
-		        .controller('HomePageController',['UserService',function(UserService)
+		        .controller('HomePageController',['UserService','$state','$scope',function(UserService,$state,$scope)
              {
                 this.userservice = UserService;
+                $scope.$state = $state;
                 //this.currentindex = 0;
              }])
             .controller('HomeDeliveryController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)

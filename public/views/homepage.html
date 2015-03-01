@@ -19,13 +19,13 @@
                     <li  class="dropdown" >
                     <a class="dropdown-toggle" data-toggle="collapse" data-parent="#active" onclick="return false;" href="#collapseOrders"><i class="fa fa-tasks"></i> Orders   <b class="caret"></b></a>
                          <ul ul id="collapseOrders" class="dropdown-menu">
-                            <li><a ui-sref="homepage.homedelivery"><i class="fa fa-user"></i> Home Delivery</a></li>
-                            <li><a ui-sref="homepage.takeaway"><i class="fa fa-gear"></i> Take Away</a></li>
-                            <li><a ui-sref="homepage.tableorder"  ><i class="fa fa-power-off"></i> Table Order</a></li>
+                            <li><a ui-sref="homepage.homedelivery" ng-class="{selected: $state.includes('homepage.homedelivery')}"><i class="fa fa-user"></i> Home Delivery</a></li>
+                            <li><a ui-sref="homepage.takeaway" ng-class="{selected: $state.includes('homepage.takeaway')}"><i class="fa fa-gear"></i> Take Away</a></li>
+                            <li><a ui-sref="homepage.tableorder" ng-class="{selected: $state.includes('homepage.tableorder')}"  ><i class="fa fa-power-off"></i> Table Order</a></li>
                         </ul>
                     </li>
-                    <li><a ui-sref="homepage.menusupload"><i class="fa fa-globe"></i> Menus</a></li>
-                    <li><a ui-sref="homepage.discounts"><i class="fa fa-list-ol"></i> Discounts</a></li>
+                    <li><a ui-sref="homepage.menusupload" ng-class="{selected: $state.includes('homepage.menusupload')}"><i class="fa fa-globe"></i> Menus</a></li>
+                    <li><a ui-sref="homepage.discounts" ng-class="{selected: $state.includes('homepage.discounts')}"><i class="fa fa-list-ol"></i> Discounts</a></li>
                     <!--li><a href="register.html"><i class="fa fa-font"></i> Register</a></li>
                     <li><a href="timeline.html"><i class="fa fa-font"></i> Timeline</a></li>
                     <li><a href="forms.html"><i class="fa fa-list-ol"></i> Forms</a></li>
@@ -73,5 +73,5 @@
 
 
 
-    <div ui-view></div>
+    <div ui-view ng-cloak></div>
 </div>
