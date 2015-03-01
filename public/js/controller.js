@@ -1,5 +1,10 @@
 angular.module('foodpipeApp')
-		        .controller('HomePageController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
+		        .controller('HomePageController',['UserService',function(UserService)
+             {
+                this.userservice = UserService;
+                //this.currentindex = 0;
+             }])
+            .controller('HomeDeliveryController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
              {
                 this.notificationservice = NotificationService;
                 $scope.radioModel = "Pending";
@@ -20,9 +25,52 @@ angular.module('foodpipeApp')
                 };
                 //this.currentindex = 0;
              }])
-            .controller('DashboardPageController',['UserService',function(UserService)
+            .controller('TakeawayController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
+             {
+                this.notificationservice = NotificationService;
+                $scope.radioModel = "Pending";
+                socket.on('messagetoyou',function(data){
+                    console.log('obtained data for only me yaaay: ',data);
+                });
+                this.pendingnotification = function()
+                {
+                   this.notificationservice.fetchnotification(); 
+                };
+                this.acceptednotification = function()
+                {
+                  this.notificationservice.acceptednotification();
+                };
+                this.rejectednotification = function()
+                {
+                   this.notificationservice.rejectednotification();
+                };
+                //this.currentindex = 0;
+             }])
+            .controller('TableOrderController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
+             {
+                this.notificationservice = NotificationService;
+                $scope.radioModel = "Pending";
+                socket.on('messagetoyou',function(data){
+                    console.log('obtained data for only me yaaay: ',data);
+                });
+                this.pendingnotification = function()
+                {
+                   this.notificationservice.fetchnotification(); 
+                };
+                this.acceptednotification = function()
+                {
+                  this.notificationservice.acceptednotification();
+                };
+                this.rejectednotification = function()
+                {
+                   this.notificationservice.rejectednotification();
+                };
+                //this.currentindex = 0;
+             }])
+            .controller('DashboardPageController',['UserService','$scope','$state',function(UserService,$scope,$state)
              {
                 this.userservice = UserService;
+                $scope.$state = $state;
              }])
             .controller('MenuUploadController',['MenuService','$modal','$scope',function(MenuService,$modal,$scope)
              {

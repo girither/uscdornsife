@@ -32,8 +32,8 @@
     .state('homepage.homedelivery', {
       url: "/homedelivery",
       templateUrl: "views/homedelivery.html",
-      controller: 'HomePageController',
-      controllerAs:  'hmepgectrl',
+      controller: 'HomeDeliveryController',
+      controllerAs:  'hmedeliveryctrl',
       resolve:{
         auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
           return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
@@ -45,8 +45,8 @@
      .state('homepage.tableorder', {
       url: "/tableorder",
       templateUrl: "views/tableorder.html",
-      controller: 'HomePageController',
-      controllerAs:  'hmepgectrl',
+      controller: 'TableOrderController',
+      controllerAs:  'tableorderctrl',
       resolve:{
         auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
           return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
@@ -58,8 +58,8 @@
     .state('homepage.takeaway', {
       url: "/takeaway",
       templateUrl: "views/takeaway.html",
-      controller: 'HomePageController',
-      controllerAs: 'hmepgectrl',
+      controller: 'TakeawayController',
+      controllerAs: 'takeawayctrl',
       resolve:{
         auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
           return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){

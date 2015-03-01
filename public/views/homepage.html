@@ -15,7 +15,7 @@
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="active" class="nav navbar-nav side-nav">
-                    <li ><a ui-sref="homepage.dashboard"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li ng-class="{selected: $state.includes('homepage.dashboard')}"><a ui-sref="homepage.dashboard"><i class="fa fa-bullseye"></i> Dashboard</a></li>
                     <li  class="dropdown" >
                     <a class="dropdown-toggle" data-toggle="collapse" data-parent="#active" onclick="return false;" href="#collapseOrders"><i class="fa fa-tasks"></i> Orders   <b class="caret"></b></a>
                          <ul ul id="collapseOrders" class="dropdown-menu">

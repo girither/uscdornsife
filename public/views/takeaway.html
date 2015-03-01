@@ -1,12 +1,18 @@
+
+
+
 <div class="row">
 
-  <div class = "col-md-6 col-md-offset-4">
+  <div class = "col-md-4 col-md-offset-4">
     <div class="btn-group" role="group" aria-label="...">
-     <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.pendingnotification()" btn-radio="'Pending'" uncheckable>Pending <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
-     <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.acceptednotification()" btn-radio="'Accepted'" uncheckable>Accepted <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
-     <label class="btn btn-default"  ng-model="radioModel" ng-click="hmepgectrl.rejectednotification()" btn-radio="'Rejected'" uncheckable>Rejected <span class="badge">{{hmepgectrl.notificationservice.getnotificationcount()}}</span></label>
+     <label class="btn btn-default"  ng-model="radioModel" ng-click="takeawayctrl.pendingnotification()" btn-radio="'Pending'" uncheckable>Pending <span class="badge">{{takeawayctrl.notificationservice.getnotificationcount()}}</span></label>
+     <label class="btn btn-default"  ng-model="radioModel" ng-click="takeawayctrl.acceptednotification()" btn-radio="'Accepted'" uncheckable>Accepted <span class="badge">{{takeawayctrl.notificationservice.getnotificationcount()}}</span></label>
+     <label class="btn btn-default"  ng-model="radioModel" ng-click="takeawayctrl.rejectednotification()" btn-radio="'Rejected'" uncheckable>Rejected <span class="badge">{{takeawayctrl.notificationservice.getnotificationcount()}}</span></label>
    </div>
  </div>
+     <div class = "col-md-2 col-md-offset-2">
+               <h4 >Take Away</h4>
+             </div>
 </div>
 <div id="page-wrapper" >
 
@@ -17,7 +23,7 @@
         <h3 class="panel-title">Notification</h3>
       </div>
       <div class="list-group">
-        <a class="list-group-item" ng-click="$parent.selected = notification;hmepgectrl.notificationservice.filterorderdetails($index)" ng-class="{active:selected==notification}" ng-repeat="notification in hmepgectrl.notificationservice.getnotification()">
+        <a class="list-group-item" ng-click="$parent.selected = notification;takeawayctrl.notificationservice.filterorderdetails($index)" ng-class="{active:selected==notification}" ng-repeat="notification in takeawayctrl.notificationservice.getnotification()">
           <div class="row">
             <div class="col-sm-6">
               <i class="fa fa-3x fa-building-o pull-left"></i>
@@ -45,7 +51,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Order Details
-         <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+         <a class="btn btn-success pull-right btn-xs" ng-click = "takeawayctrl.savemenu()" >
           <i class="fa fa-pencil"></i>
           <span>Edit</span>
         </a></h3>
@@ -56,7 +62,7 @@
             <tr class="active"><th>Name</th><th>Quantity</th><th>Rate</th></tr>
           </thead>
           <tbody>
-            <tr ng-repeat="orderdetail in hmepgectrl.notificationservice.getorderdetail()" ><td>{{orderdetail['itemname']}}</td><td>{{orderdetail['itemprice']}}</td><td>{{orderdetail['itemquantity']}}</td></tr>
+            <tr ng-repeat="orderdetail in takeawayctrl.notificationservice.getorderdetail()" ><td>{{orderdetail['itemname']}}</td><td>{{orderdetail['itemprice']}}</td><td>{{orderdetail['itemquantity']}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -86,7 +92,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Customer Details
-         <a class="btn btn-success pull-right btn-xs" ng-click = "menusuploadpgectrl.savemenu()" >
+         <a class="btn btn-success pull-right btn-xs" ng-click = "takeawayctrl.savemenu()" >
           <i class="fa fa-pencil"></i>
           <span>Edit</span>
         </a>
@@ -95,15 +101,15 @@
     <div class="list-group" >
       <a class="list-group-item">
         <label>Name</label>
-        <h4 class="list-group-item-heading" ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Name" ></h4>
+        <h4 class="list-group-item-heading" ng-bind = "takeawayctrl.notificationservice.getcustomerdetails().Name" ></h4>
       </a>
       <a class="list-group-item">
         <label>Phone</label>
-        <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().PhoneNumber" ></h4>
+        <h4 class="list-group-item-heading"  ng-bind = "takeawayctrl.notificationservice.getcustomerdetails().PhoneNumber" ></h4>
       </a>
       <a class="list-group-item">
         <label>Email</label>
-        <h4 class="list-group-item-heading"  ng-bind = "hmepgectrl.notificationservice.getcustomerdetails().Email" ></h4>
+        <h4 class="list-group-item-heading"  ng-bind = "takeawayctrl.notificationservice.getcustomerdetails().Email" ></h4>
       </a>
     </div>
   </div>
