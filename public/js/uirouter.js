@@ -8,7 +8,15 @@
       url: "/signin",
       templateUrl: "views/userlogin.html",
       controller: 'LoginCtrl',
-      controllerAs: 'loginCtrl'
+      controllerAs: 'loginCtrl',
+      resolve:{
+        auth:['$q','$location','UserService',function($q,$location,UserService){
+          return UserService.checkexpiry().then(function(success){},function(error)
+          {
+           $location.path('/signin');
+           $location.replace();
+         });
+        }]}
     })
     .state('main', {
       url: "/",
@@ -117,6 +125,14 @@
       url: "/signup",
       templateUrl: "views/usersignup.html",
       controller: 'SignupController',
-      controllerAs: 'signupctrl'
+      controllerAs: 'signupctrl',
+      resolve:{
+        auth:['$q','$location','UserService',function($q,$location,UserService){
+          return UserService.checkexpiry().then(function(success){},function(error)
+          {
+           $location.path('/signin');
+           $location.replace();
+         });
+        }]}
     });
       }]);

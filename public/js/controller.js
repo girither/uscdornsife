@@ -51,8 +51,14 @@ angular.module('foodpipeApp')
              {
                 this.notificationservice = NotificationService;
                 $scope.radioModel = "Pending";
-                socket.on('messagetoyou',function(data){
-                    console.log('obtained data for only me yaaay: ',data);
+                socket.on('placedOrder',function(data){
+                  console.log('obtained data for only me yaaay: ',data.payload);
+                  var payload = {};
+                  payload = data.payload;
+                  payload.OrderSummary = JSON.parse(payload.OrderSummary);
+                  payload.Orders = JSON.parse(payload.Orders);
+                  NotificationService.pushnotification(payload);
+                  $scope.$apply();
                 });
                 this.pendingnotification = function()
                 {
@@ -118,6 +124,11 @@ angular.module('foodpipeApp')
                   };
                   
              })
+             .controller('IndexController',['UserService','$scope','$state',function(UserService,$scope,$state)
+             {
+                this.userservice = UserService;
+                $scope.$state = $state;
+             }])
 		       .controller('AppController',['UserService','$location',function(UserService,$location)
              {
                 this.userservice = UserService;

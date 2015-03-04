@@ -4,6 +4,11 @@ angular.module('foodpipeApp')
                 return {
                 LoggedIn: function() {
                      return isLoggedin;
+                },
+                getuserdetails:function(){
+                  if( $window.merchantdata){
+                    return  $window.merchantdata;
+                  }
                 },    
                 login :function(user){
                    return $http.post('http://localhost:3000/login',user).then(function(response)
@@ -68,6 +73,10 @@ angular.module('foodpipeApp')
                {
                   return notifications;
                },
+               pushnotification:function(payload)
+               {
+                 notifications.unshift(payload);
+               }, 
                getorderdetail:function(){
                   return orderdetail;
                },
