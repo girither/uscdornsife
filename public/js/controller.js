@@ -47,10 +47,12 @@ angular.module('foodpipeApp')
                 };
                 //this.currentindex = 0;
              }])
-            .controller('TableOrderController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
+            .controller('TableOrderController',['socket','$scope','NotificationService','$state',function(socket,$scope,NotificationService,$state)
              {
                 this.notificationservice = NotificationService;
                 $scope.radioModel = "Pending";
+                this.notificationservice.countacceptedorders();
+                this.notificationservice.countrejectedorders(); 
                 socket.on('placedOrder',function(data){
                   console.log('obtained data for only me yaaay: ',data.payload);
                   var payload = {};

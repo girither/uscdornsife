@@ -5,13 +5,13 @@
           <div class = "col-md-4 col-md-offset-4">
               <div class="btn-group" role="group" aria-label="...">
                  <label class="btn btn-default"  ng-model="radioModel" ng-click="tableorderctrl.pendingnotification()" btn-radio="'Pending'" uncheckable>Pending <span class="badge">{{tableorderctrl.notificationservice.getnotificationcount()}}</span></label>
-                 <label class="btn btn-default"  ng-model="radioModel" ng-click="tableorderctrl.acceptednotification()" btn-radio="'Accepted'" uncheckable>Accepted <span class="badge">{{tableorderctrl.notificationservice.getnotificationcount()}}</span></label>
-                 <label class="btn btn-default"  ng-model="radioModel" ng-click="tableorderctrl.rejectednotification()" btn-radio="'Rejected'" uncheckable>Rejected <span class="badge">{{tableorderctrl.notificationservice.getnotificationcount()}}</span></label>
+                 <label class="btn btn-default"   ng-model="radioModel" ng-click="tableorderctrl.acceptednotification()" btn-radio="'Accepted'" uncheckable>Accepted <span class="badge">{{tableorderctrl.notificationservice.getacceptednotificationcount()}}</span></label>
+                 <label class="btn btn-default"  ng-model="radioModel" ng-click="tableorderctrl.rejectednotification()" btn-radio="'Rejected'" uncheckable>Rejected <span class="badge">{{tableorderctrl.notificationservice.getrejectednotificationcount()}}</span></label>
               </div>
 
             </div>
              <div class = "col-md-2 col-md-offset-2">
-               <h4 >Table Order</h4>
+               <h4 class="col-md-offset-4">Table Order</h4>
              </div>
             </div>
           <div id="page-wrapper" >
@@ -51,7 +51,7 @@
   <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Order Details
-     <a class="btn btn-success pull-right btn-xs" ng-click = "tableorderctrl.savemenu()" >
+     <a class="btn btn-success pull-right btn-xs"  >
                 <i class="fa fa-pencil"></i>
                 <span>Edit</span>
               </a></h3>
@@ -67,18 +67,24 @@
     </table>
   </div>
   <div class="panel-footer">
-   
-      <button class="btn btn-xs btn-success">
+    <span ng-show="radioModel == 'Pending' ||radioModel == 'Rejected'">   
+      <button class="btn btn-xs btn-success" ng-click="tableorderctrl.notificationservice.acceptorder()" >
         <i class="fa fa-check"></i>
         Accept
       </button>
-    
-      
-       <button class="btn btn-xs pull-right btn-danger">
+    </span>
+     <span ng-show="radioModel == 'Pending'">       
+       <button class="btn btn-xs pull-right btn-danger" ng-click="tableorderctrl.notificationservice.rejectorder()" >
         <i class="fa fa-times"></i>
         Reject
       </button>
-     
+     </span>
+      <span ng-show="radioModel == 'Accepted'">       
+       <button class="btn btn-xs btn-danger" ng-click="tableorderctrl.notificationservice.rejectorder()" >
+        <i class="fa fa-times"></i>
+        Reject
+      </button>
+     </span>
   </div>
 </div>
 </div>
@@ -114,4 +120,5 @@
             </div>
         </div>
         </div>
+</div>
 </div>

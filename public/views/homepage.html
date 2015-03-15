@@ -1,5 +1,4 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="css/bootply.css" />
  <div id="wrapper">
 
           <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -15,7 +14,7 @@
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="active" class="nav navbar-nav side-nav">
-                    <li ng-class="{selected: $state.includes('homepage.dashboard')}"><a ui-sref="homepage.dashboard"><i class="fa fa-bullseye"></i> Dashboard</a></li>
+                    <li ng-class="{selected: $state.includes('homepage.dashboard')}"><a ui-sref="homepage.dashboard" ><i class="fa fa-bullseye"></i> Dashboard</a></li>
                     <li  class="dropdown" >
                     <a class="dropdown-toggle" data-toggle="collapse" data-parent="#active" onclick="return false;" href="#collapseOrders"><i class="fa fa-tasks"></i> Orders   <b class="caret"></b></a>
                          <ul ul id="collapseOrders" class="dropdown-menu">
@@ -24,8 +23,8 @@
                             <li><a ui-sref="homepage.tableorder" ng-class="{selected: $state.includes('homepage.tableorder')}"  ><i class="fa fa-power-off"></i> Table Order</a></li>
                         </ul>
                     </li>
-                    <li><a ui-sref="homepage.menusupload" ng-class="{selected: $state.includes('homepage.menusupload')}"><i class="fa fa-globe"></i> Menus</a></li>
-                    <li><a ui-sref="homepage.discounts" ng-class="{selected: $state.includes('homepage.discounts')}"><i class="fa fa-list-ol"></i> Discounts</a></li>
+                    <li><a ui-sref="homepage.menusupload"  ng-class="{selected: $state.includes('homepage.menusupload')}"><i class="fa fa-globe"></i> Menus</a></li>
+                    <li><a ui-sref="homepage.discounts"  ng-class="{selected: $state.includes('homepage.discounts')}"><i class="fa fa-list-ol"></i> Discounts</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right navbar-user">

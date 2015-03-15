@@ -1,4 +1,4 @@
-  angular.module('foodpipeApp',['ui.router','ui.bootstrap','cfp.loadingBar', 'ngAnimate','ngResource'])
+  angular.module('foodpipeApp',['ui.router','ui.bootstrap','cfp.loadingBar', 'ngAnimate','ngResource','door3.css'])
   .config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise("/");
     //
@@ -10,12 +10,12 @@
       controller: 'LoginCtrl',
       controllerAs: 'loginCtrl',
       resolve:{
-        auth:['$q','$location','UserService',function($q,$location,UserService){
-          return UserService.checkexpiry().then(function(success){},function(error)
-          {
-           $location.path('/signin');
-           $location.replace();
-         });
+        auth:['$q','$location','UserService','$state',function($q,$location,UserService,$state){
+          return UserService.checkexpiry().then(function(success){
+             $state.transitionTo('main');
+             $location.replace();
+          },function(error)
+          {});
         }]}
     })
     .state('main', {
@@ -29,6 +29,10 @@
       templateUrl: "views/homepage.html",
       controller: 'HomePageController',
       controllerAs:  'hmepgectrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
       resolve:{
         auth:['$q','$location','UserService','NotificationService','$state',function($q,$location,UserService,NotificationService,$state){
           return UserService.checkexpiry().then(function(success){},function(error){
@@ -42,6 +46,10 @@
       templateUrl: "views/homedelivery.html",
       controller: 'HomeDeliveryController',
       controllerAs:  'hmedeliveryctrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
       resolve:{
         auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
           return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
@@ -55,8 +63,12 @@
       templateUrl: "views/tableorder.html",
       controller: 'TableOrderController',
       controllerAs:  'tableorderctrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
       resolve:{
-        auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
+        auth:['$q','$location','UserService','NotificationService','$state',function($q,$location,UserService,NotificationService,$state){
           return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
            $location.path('/signin');
            $location.replace();
@@ -68,6 +80,10 @@
       templateUrl: "views/takeaway.html",
       controller: 'TakeawayController',
       controllerAs: 'takeawayctrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
       resolve:{
         auth:['$q','$location','UserService','NotificationService',function($q,$location,UserService,NotificationService){
           return UserService.checkexpiry().then(function(success){NotificationService.fetchnotification();},function(error){
@@ -81,6 +97,10 @@
       templateUrl: "views/dashboard.html",
       controller: 'DashboardPageController',
       controllerAs: 'dashboardpgectrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
       resolve:{
         auth:['$q','$location','UserService',function($q,$location,UserService){
           return UserService.checkexpiry().then(function(success){},function(error)
@@ -92,6 +112,10 @@
       })
     .state("homepage.menusupload.addNewItem", {
       url: "/addNewItem:indexval",
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
       onEnter: ['$stateParams', '$state', '$modal', '$resource','MenuService', function($stateParams, $state, $modal, $resource,MenuService) {
         $modal.open({
           templateUrl: 'views/additem.html',
@@ -112,6 +136,10 @@
      templateUrl: "views/menusupload.html",
      controller: 'MenuUploadController',
      controllerAs: 'menusuploadpgectrl',
+     css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
      resolve:{
       auth:['$q','$location','UserService','MenuService',function($q,$location,UserService,MenuService){
         return UserService.checkexpiry().then(function(success){ MenuService.fetchgroups();},function(error)
@@ -127,12 +155,12 @@
       controller: 'SignupController',
       controllerAs: 'signupctrl',
       resolve:{
-        auth:['$q','$location','UserService',function($q,$location,UserService){
-          return UserService.checkexpiry().then(function(success){},function(error)
-          {
-           $location.path('/signin');
-           $location.replace();
-         });
+        auth:['$q','$location','UserService','$state',function($q,$location,UserService,$state){
+          return UserService.checkexpiry().then(function(success){
+              $state.transitionTo('main');
+             $location.replace();
+          },function(error)
+          {});
         }]}
     });
       }]);
