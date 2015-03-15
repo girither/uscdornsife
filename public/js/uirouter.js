@@ -1,4 +1,4 @@
-  angular.module('foodpipeApp',['ui.router','ui.bootstrap','cfp.loadingBar', 'ngAnimate','ngResource','door3.css'])
+  angular.module('foodpipeApp',['ui.router','ui.bootstrap','cfp.loadingBar', 'ngAnimate','ngResource','door3.css','googlechart'])
   .config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise("/");
     //
