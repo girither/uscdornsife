@@ -57,8 +57,8 @@ this.rejectednotification = function()
     console.log('obtained data for only me yaaay: ',data.payload);
     var payload = {};
     payload = data.payload;
-    payload.OrderSummary = JSON.parse(payload.OrderSummary);
-    payload.Orders = JSON.parse(payload.Orders);
+    payload.OrderSummary = payload.OrderSummary;
+    payload.Orders = payload.Orders;
     NotificationService.pushnotification(payload);
     $scope.$apply();
   });
