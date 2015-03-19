@@ -45,9 +45,9 @@
    isLoggedin = false;
    delete $window.sessionStorage.token;
    $location.path('/signin');
-  },
-  };
-  }])
+ },
+};
+}])
   .factory('socket',function($rootScope){
     var socket = io.connect('http://localhost:3000');
     return{
@@ -89,154 +89,163 @@
     return customerdetails;
   },
   getnotificationcount:function(){
-   return pendingnotifications.length;
-  },
-  getacceptednotificationcount:function(){
-   return acceptednotifications.length;
-  },
-  getrejectednotificationcount:function(){
-   return rejectednotifications.length;
-  },
-  acceptorder:function(){
-    cfpLoadingBar.start();
-    var data = {};
-    data.suborderid = orderiddetails.suborderid;
-    data.orderid = orderiddetails.orderid;
-    data.customerNumber = customerdetails.customerNumber;
-    data.status = 'accept';
-    return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
-      cfpLoadingBar.complete();
-      var dummydata = {};
-      notifications.splice(indexofNotification, 1); 
-      acceptednotifications.push(dummydata);
-          //after we accept or reject suborders reset the orders and contact views
-          orderdetail = notifications[indexofNotification].Orders[0].items;
-          customerdetails = notifications[indexofNotification].CustomerDetails;
-          orderiddetails = notifications[indexofNotification].orderDetails;
-          return response;
-        }, function(error){
-          cfpLoadingBar.complete();
-          return $q.reject(error);
-        });
-  },
-  rejectorder:function(){
-    cfpLoadingBar.start();
-    var data = {};
-    data.suborderid = orderiddetails.suborderid;
-    data.orderid = orderiddetails.orderid;
-    data.customerNumber = customerdetails.customerNumber;
-    data.status = 'reject';
-    return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
-      cfpLoadingBar.complete();
-      var dummydata = {};
-      notifications.splice(indexofNotification, 1); 
-      rejectednotifications.push(dummydata);
-          //after we accept or reject suborders reset the orders and contact views
-          orderdetail = notifications[indexofNotification].Orders[0].items;
-          customerdetails = notifications[indexofNotification].CustomerDetails;
-          orderiddetails = notifications[indexofNotification].orderDetails;
-          return response;
-        }, function(error){
-          cfpLoadingBar.complete();
-          return $q.reject(error);
-        });
-  },
-  acceptednotification:function()
-  {
-    cfpLoadingBar.start();
-    var data = {};
-    data.status = 'accept';
-    return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
-      cfpLoadingBar.complete();
-      if (response.data){
-        acceptednotifications = response.data.payload;
-        indexofNotification = 0;
-        notifications = acceptednotifications;
-        orderdetail = notifications[0].Orders[0].items;
-        customerdetails = notifications[0].CustomerDetails;
-      }
-      else {
-       notifications =[];
-     }
-     return response;
-   }, function(error){
+    if(pendingnotifications)
+     return pendingnotifications.length;
+   else
+    return 0;
+},
+getacceptednotificationcount:function(){
+ if(acceptednotifications)
+     return acceptednotifications.length;
+   else
+    return 0;
+},
+getrejectednotificationcount:function(){
+   if(rejectednotifications)
+     return rejectednotifications.length;
+   else
+    return 0;
+},
+acceptorder:function(){
+  cfpLoadingBar.start();
+  var data = {};
+  data.suborderid = orderiddetails.suborderid;
+  data.orderid = orderiddetails.orderid;
+  data.customerNumber = customerdetails.customerNumber;
+  data.status = 'accept';
+  return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
-    return $q.reject(error);
-  });
-  },
-  rejectednotification:function()
-  {
-   cfpLoadingBar.start();
-   var data = {};
-   data.status = 'reject';
-   return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
+    var dummydata = {};
+    notifications.splice(indexofNotification, 1); 
+    acceptednotifications.push(dummydata);
+          //after we accept or reject suborders reset the orders and contact views
+          orderdetail = notifications[indexofNotification].Orders[0].items;
+          customerdetails = notifications[indexofNotification].CustomerDetails;
+          orderiddetails = notifications[indexofNotification].orderDetails;
+          return response;
+        }, function(error){
+          cfpLoadingBar.complete();
+          return $q.reject(error);
+        });
+},
+rejectorder:function(){
+  cfpLoadingBar.start();
+  var data = {};
+  data.suborderid = orderiddetails.suborderid;
+  data.orderid = orderiddetails.orderid;
+  data.customerNumber = customerdetails.customerNumber;
+  data.status = 'reject';
+  return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
+    cfpLoadingBar.complete();
+    var dummydata = {};
+    notifications.splice(indexofNotification, 1); 
+    rejectednotifications.push(dummydata);
+          //after we accept or reject suborders reset the orders and contact views
+          orderdetail = notifications[indexofNotification].Orders[0].items;
+          customerdetails = notifications[indexofNotification].CustomerDetails;
+          orderiddetails = notifications[indexofNotification].orderDetails;
+          return response;
+        }, function(error){
+          cfpLoadingBar.complete();
+          return $q.reject(error);
+        });
+},
+acceptednotification:function()
+{
+  cfpLoadingBar.start();
+  var data = {};
+  data.status = 'accept';
+  return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
     cfpLoadingBar.complete();
     if (response.data){
-      rejectednotifications = response.data.payload;
+      acceptednotifications = response.data.payload;
       indexofNotification = 0;
-      notifications = rejectednotifications;
+      notifications = acceptednotifications;
       orderdetail = notifications[0].Orders[0].items;
       customerdetails = notifications[0].CustomerDetails;
     }
     else {
-      notifications =[];
-    }
-    return response;
-  }, function(error){
-    cfpLoadingBar.complete();
-    return $q.reject(error);
-  });
-  },
-  filterorderdetails:function(index){
-    orderdetail = notifications[index].Orders[0].items;
-    customerdetails = notifications[index].CustomerDetails;
-    orderiddetails = notifications[index].orderDetails;
-    indexofNotification = index;
-  },
-  countacceptedorders:function(){
-    var data = {};
-    data.status = 'accept';
-    return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
-      acceptednotifications = response.data.payload; 
-      return response;
-    },function(error){
-      return $q.reject(error);
-    });
-  },
-  countrejectedorders:function(){
-    var data = {};
-    data.status = 'reject';
-    return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
-      rejectednotifications = response.data.payload; 
-    },function(error){
-      return $q.reject(error);
-    });
-  },
-  fetchnotification:function(){
-   cfpLoadingBar.start();
-   var data = {};
-   data.status = 'pending';
-   return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
-     cfpLoadingBar.complete();
-     if (response.data){
-      pendingnotifications= response.data.payload;
-      notifications = pendingnotifications;
-      indexofNotification = 0;
-      orderdetail = notifications[0].Orders[0].items;
-      customerdetails = notifications[0].CustomerDetails;
-      orderiddetails = notifications[0].orderDetails;
-    }
-    else {
-      notifications =[];
-    }
-    return response;
-  }, function(error){
-    cfpLoadingBar.complete();
-    return $q.reject(error);
-  });
+     notifications =[];
+   }
+   return response;
+ }, function(error){
+  cfpLoadingBar.complete();
+  return $q.reject(error);
+});
+},
+rejectednotification:function()
+{
+ cfpLoadingBar.start();
+ var data = {};
+ data.status = 'reject';
+ return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
+  cfpLoadingBar.complete();
+  if (response.data){
+    rejectednotifications = response.data.payload;
+    indexofNotification = 0;
+    notifications = rejectednotifications;
+    orderdetail = notifications[0].Orders[0].items;
+    customerdetails = notifications[0].CustomerDetails;
   }
-  };
-  }]) 
+  else {
+    notifications =[];
+  }
+  return response;
+}, function(error){
+  cfpLoadingBar.complete();
+  return $q.reject(error);
+});
+},
+filterorderdetails:function(index){
+  orderdetail = notifications[index].Orders[0].items;
+  customerdetails = notifications[index].CustomerDetails;
+  orderiddetails = notifications[index].orderDetails;
+  indexofNotification = index;
+},
+countacceptedorders:function(){
+  var data = {};
+  data.status = 'accept';
+  return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
+    acceptednotifications = response.data.payload; 
+    return response;
+  },function(error){
+    return $q.reject(error);
+  });
+},
+countrejectedorders:function(){
+  var data = {};
+  data.status = 'reject';
+  return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
+    rejectednotifications = response.data.payload; 
+  },function(error){
+    return $q.reject(error);
+  });
+},
+fetchnotification:function(){
+ cfpLoadingBar.start();
+ var data = {};
+ data.status = 'pending';
+ return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
+   cfpLoadingBar.complete();
+   if (response.data){
+    pendingnotifications= response.data.payload;
+    notifications = pendingnotifications;
+    indexofNotification = 0;
+    orderdetail = notifications[0].Orders[0].items;
+    customerdetails = notifications[0].CustomerDetails;
+    orderiddetails = notifications[0].orderDetails;
+  }
+  else {
+    notifications =[];
+  }
+  return response;
+}, function(error){
+  cfpLoadingBar.complete();
+  return $q.reject(error);
+});
+}
+};
+}]) 
   .factory('MenuService',['$http','cfpLoadingBar',function($http,cfpLoadingBar){
     groups =[];
     return {
@@ -283,7 +292,7 @@
       groups[parentindex].items.splice(index, 1);  
     },
   };
-  }])
+}])
   .factory('authInterceptor', ['$window',function($window) {  
     var sessionInjector = {
       request: function(config) {
