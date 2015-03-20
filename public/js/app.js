@@ -65,14 +65,15 @@
 
   })
   .factory('NotificationService',['$http','$location','cfpLoadingBar','$window','$q',function($http,$location,cfpLoadingBar,$window,$q){
-    notifications = [];
-    orderdetail = [];
-    pendingnotifications =[];
-    acceptednotifications =[];
-    rejectednotifications =[];
-    customerdetails ={};
-    orderiddetails ={};
-    var indexofNotification;
+    var
+    notifications = [],
+    orderdetail = [],
+    pendingnotifications =[],
+    acceptednotifications =[],
+    rejectednotifications =[],
+    customerdetails ={},
+    orderiddetails ={}.
+    indexofNotification;
     return {
      getnotification:function()
      {
@@ -115,10 +116,10 @@ acceptorder:function(){
   data.status = 'accept';
   return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
-    if(notifications.length  > 0){
     var dummydata = {};
     notifications.splice(indexofNotification, 1); 
     acceptednotifications.push(dummydata);
+     if(notifications.length  > 0){
           //after we accept or reject suborders reset the orders and contact views
     orderdetail = notifications[indexofNotification].Orders[0].items;
     customerdetails = notifications[indexofNotification].CustomerDetails;
@@ -145,10 +146,10 @@ rejectorder:function(){
   data.status = 'reject';
   return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
-    if(notifications.length  > 0){
     var dummydata = {};
     notifications.splice(indexofNotification, 1); 
     rejectednotifications.push(dummydata);
+    if(notifications.length  > 0){
           //after we accept or reject suborders reset the orders and contact views
           orderdetail = notifications[indexofNotification].Orders[0].items;
           customerdetails = notifications[indexofNotification].CustomerDetails;
@@ -179,6 +180,7 @@ acceptednotification:function()
       notifications = acceptednotifications;
       orderdetail = notifications[0].Orders[0].items;
       customerdetails = notifications[0].CustomerDetails;
+      orderiddetails = notifications[0].orderDetails;
     }
     else {
      notifications =[];
@@ -204,6 +206,7 @@ rejectednotification:function()
     notifications = rejectednotifications;
     orderdetail = notifications[0].Orders[0].items;
     customerdetails = notifications[0].CustomerDetails;
+    orderiddetails = notifications[0].orderDetails;
   }
   else {
     notifications =[];
