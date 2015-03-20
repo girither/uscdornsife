@@ -115,13 +115,21 @@ acceptorder:function(){
   data.status = 'accept';
   return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
+    if(notifications.length  > 0){
     var dummydata = {};
     notifications.splice(indexofNotification, 1); 
     acceptednotifications.push(dummydata);
           //after we accept or reject suborders reset the orders and contact views
-          orderdetail = notifications[indexofNotification].Orders[0].items;
-          customerdetails = notifications[indexofNotification].CustomerDetails;
-          orderiddetails = notifications[indexofNotification].orderDetails;
+    orderdetail = notifications[indexofNotification].Orders[0].items;
+    customerdetails = notifications[indexofNotification].CustomerDetails;
+    orderiddetails = notifications[indexofNotification].orderDetails;
+  }
+  else {
+    orderdetail = {};
+    customerdetails = {};
+    orderiddetails = {};
+
+  }
           return response;
         }, function(error){
           cfpLoadingBar.complete();
@@ -137,6 +145,7 @@ rejectorder:function(){
   data.status = 'reject';
   return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
+    if(notifications.length  > 0){
     var dummydata = {};
     notifications.splice(indexofNotification, 1); 
     rejectednotifications.push(dummydata);
@@ -144,6 +153,13 @@ rejectorder:function(){
           orderdetail = notifications[indexofNotification].Orders[0].items;
           customerdetails = notifications[indexofNotification].CustomerDetails;
           orderiddetails = notifications[indexofNotification].orderDetails;
+        }
+      else {
+    orderdetail = {};
+    customerdetails = {};
+    orderiddetails = {};
+
+  }
           return response;
         }, function(error){
           cfpLoadingBar.complete();
@@ -157,7 +173,7 @@ acceptednotification:function()
   data.status = 'accept';
   return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
     cfpLoadingBar.complete();
-    if (response.data){
+    if (response.data.payload){
       acceptednotifications = response.data.payload;
       indexofNotification = 0;
       notifications = acceptednotifications;
@@ -166,6 +182,8 @@ acceptednotification:function()
     }
     else {
      notifications =[];
+     orderdetail = {};
+     customerdetails = {};
    }
    return response;
  }, function(error){
@@ -180,7 +198,7 @@ rejectednotification:function()
  data.status = 'reject';
  return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
   cfpLoadingBar.complete();
-  if (response.data){
+  if (response.data.payload){
     rejectednotifications = response.data.payload;
     indexofNotification = 0;
     notifications = rejectednotifications;
@@ -189,6 +207,8 @@ rejectednotification:function()
   }
   else {
     notifications =[];
+    orderdetail = {};
+    customerdetails = {};
   }
   return response;
 }, function(error){
@@ -227,7 +247,7 @@ fetchnotification:function(){
  data.status = 'pending';
  return $http.post('http://localhost:3000/getPendingOrdersForToday',data).then(function(response){
    cfpLoadingBar.complete();
-   if (response.data){
+   if (response.data.payload){
     pendingnotifications= response.data.payload;
     notifications = pendingnotifications;
     indexofNotification = 0;
@@ -237,6 +257,8 @@ fetchnotification:function(){
   }
   else {
     notifications =[];
+     orderdetail = {};
+    customerdetails = {};
   }
   return response;
 }, function(error){
