@@ -41,6 +41,47 @@
          });
         }]}
       })
+
+
+ 
+    .state('homepage.invoice', {
+      url: "/invoice",
+      templateUrl: "views/invoice.html",
+      controller: 'InvoiceController',
+      controllerAs:  'invoicectrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
+      resolve:{
+        auth:['$q','$location','UserService','$state','BillingService',function($q,$location,UserService,$state,BillingService){
+          return UserService.checkexpiry().then(function(success){BillingService.fetchbill();},function(error){
+           $location.path('/signin');
+           $location.replace();
+         });
+        }]}
+      })
+	
+ 
+    .state('homepage.bill', {
+      url: "/bill",
+      templateUrl: "views/bill.html",
+      controller: 'InvoiceController',
+      controllerAs:  'invoicectrl',
+      css: {
+        href: 'css/bootply.css',
+        preload: true
+      },
+      resolve:{
+        auth:['$q','$location','UserService','$state','BillingService',function($q,$location,UserService,$state,BillingService){
+          return UserService.checkexpiry().then(function(success){BillingService.billingForOrderId();},function(error){
+           $location.path('/signin');
+           $location.replace();
+         });
+        }]}
+      })	
+
+
     .state('homepage.homedelivery', {
       url: "/homedelivery",
       templateUrl: "views/homedelivery.html",
@@ -149,7 +190,8 @@
        });
       }]}
     })
-    .state('signup', {
+ 
+  .state('signup', {
       url: "/signup",
       templateUrl: "views/usersignup.html",
       controller: 'SignupController',

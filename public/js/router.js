@@ -61,6 +61,34 @@ angular.module('foodpipeApp',['ngRoute','ui.bootstrap','cfp.loadingBar', 'ngAnim
                       });
                 }]}
               })
+	      .when('/invoice', {
+                templateUrl: 'views/invoice.html',
+                controller: 'InvoiceController',
+                controllerAs: 'invoicectrl',
+                resolve:{
+                auth:['$q','$location','UserService','BillingService',function($q,$location,UserService,BillingService){
+                      return UserService.checkexpiry().then(function(success){BillingService.fetchbill();},function(error)
+                      {
+                           $location.path('/signin');
+                           $location.replace();
+                      });
+                }]}
+
+              })
+	      .when('/bill', {
+                templateUrl: 'views/bill.html',
+                controller: 'InvoiceController',
+                controllerAs: 'invoicectrl',
+                resolve:{
+                auth:['$q','$location','UserService','BillingService',function($q,$location,UserService,BillingService){
+                      return UserService.checkexpiry().then(function(success){BillingService.billingForOrderId();},function(error)
+                      {
+                           $location.path('/signin');
+                           $location.replace();
+                      });
+                }]}
+
+              })
               .when('/menusupload',{
                 templateUrl: 'views/menusupload.html',
                 controller: 'MenuUploadController',

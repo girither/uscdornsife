@@ -65,14 +65,15 @@
 
   })
   .factory('NotificationService',['$http','$location','cfpLoadingBar','$window','$q',function($http,$location,cfpLoadingBar,$window,$q){
-    notifications = [];
-    orderdetail = [];
-    pendingnotifications =[];
-    acceptednotifications =[];
-    rejectednotifications =[];
-    customerdetails ={};
-    orderiddetails ={};
-    var indexofNotification;
+    var
+    notifications = [],
+    orderdetail = [],
+    pendingnotifications =[],
+    acceptednotifications =[],
+    rejectednotifications =[],
+    customerdetails ={},
+    orderiddetails ={}.
+    indexofNotification;
     return {
      getnotification:function()
      {
@@ -115,10 +116,10 @@ acceptorder:function(){
   data.status = 'accept';
   return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
-    if(notifications.length  > 0){
     var dummydata = {};
     notifications.splice(indexofNotification, 1); 
     acceptednotifications.push(dummydata);
+     if(notifications.length  > 0){
           //after we accept or reject suborders reset the orders and contact views
     orderdetail = notifications[indexofNotification].Orders[0].items;
     customerdetails = notifications[indexofNotification].CustomerDetails;
@@ -145,10 +146,10 @@ rejectorder:function(){
   data.status = 'reject';
   return $http.post('http://localhost:3000/acceptOrRejectSubOrder',data).then(function(response){
     cfpLoadingBar.complete();
-    if(notifications.length  > 0){
     var dummydata = {};
     notifications.splice(indexofNotification, 1); 
     rejectednotifications.push(dummydata);
+    if(notifications.length  > 0){
           //after we accept or reject suborders reset the orders and contact views
           orderdetail = notifications[indexofNotification].Orders[0].items;
           customerdetails = notifications[indexofNotification].CustomerDetails;
@@ -179,6 +180,7 @@ acceptednotification:function()
       notifications = acceptednotifications;
       orderdetail = notifications[0].Orders[0].items;
       customerdetails = notifications[0].CustomerDetails;
+      orderiddetails = notifications[0].orderDetails;
     }
     else {
      notifications =[];
@@ -204,6 +206,7 @@ rejectednotification:function()
     notifications = rejectednotifications;
     orderdetail = notifications[0].Orders[0].items;
     customerdetails = notifications[0].CustomerDetails;
+    orderiddetails = notifications[0].orderDetails;
   }
   else {
     notifications =[];
@@ -328,4 +331,55 @@ fetchnotification:function(){
   }])
   .config(['$httpProvider', function($httpProvider) {  
     $httpProvider.interceptors.push('authInterceptor');
-  }]);
+  }])
+
+  .factory('BillingService',['$http','cfpLoadingBar',function($http,cfpLoadingBar){
+    getbill =[];
+	getbillfororder=[];
+
+    return {
+      billing:function()
+      {
+        return getbill;
+      },
+      fetchbill:function(){
+        return $http.post('http://localhost:3000/getTodaysBillForMorpheus').then(function(response){
+		 getbill=[];
+         if (response.data){
+          getbill.push(response.data);
+          console.log('getbill value is ',getbill);
+        }
+        else {
+          getbill =[];
+        }
+        return response;
+      }, function(error){
+       return $q.reject(error);
+     });
+      } ,
+		
+      billingForOrderId:function()
+      {
+        return getbillfororder;
+      },
+      fetchbillfororder:function(payload){
+
+		  console.log('index val is ',payload);
+		//  data={"orderid":1445029469};
+        return $http.post('http://localhost:3000/getBill',payload).then(function(response){
+		 getbillfororder=[];
+         if (response.data){
+          getbillfororder.push(response.data);
+          console.log('getbillfororder val is ',getbillfororder);
+        }
+        else {
+          getbillfororder =[];
+        }
+        return response;
+      }, function(error){
+       return $q.reject(error);
+     });
+      } 
+		
+  };
+}]);

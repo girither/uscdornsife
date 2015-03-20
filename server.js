@@ -11,6 +11,6 @@ app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use('/mock',  express.static(__dirname + '/mock'));
 
 app.get('/',function(req,res){
-	res.sendfile('./index.html');
+	res.sendFile('./index.html',{"root": __dirname});
 });
 

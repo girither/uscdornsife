@@ -5,6 +5,49 @@ angular.module('foodpipeApp')
   $scope.$state = $state;
                 //this.currentindex = 0;
               }])
+
+.controller('InvoiceController',['BillingService', '$scope','$modal','socket',function(BillingService,$scope,$modal,socket) {
+  this.billInfo=BillingService;
+  //this.billInfoForOrderId=BillingService;
+  $scope.radioModel = "Pending";
+  socket.on('messagetoyou',function(data){
+    console.log('obtained data for only me yaaay: ',data);
+  });
+
+	 
+  $scope.open = function (_orderid,size) {
+console.log('open orderid is ',_orderid);
+    var modalInstance = $modal.open({
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrlforInv',
+	  size:size,
+      resolve: {
+        orderid: function () {
+          return _orderid;
+        }
+      }
+    });      
+
+  };
+
+}])
+
+
+.controller('ModalInstanceCtrlforInv', function ($scope, $modalInstance, orderid) {
+
+  $scope.inv = orderid;
+console.log('orderid in modalinstance is ',$scope.orderid);
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+})
+
+
 .controller('HomeDeliveryController',['socket','$scope','NotificationService',function(socket,$scope,NotificationService)
 {
   this.notificationservice = NotificationService;
@@ -348,6 +391,7 @@ this.savemenu = function()
   index:indexval
 };
 
+	
 $scope.ok = function () {
   $modalInstance.close($scope.item);
   $state.transitionTo('homepage.menusupload'); 
